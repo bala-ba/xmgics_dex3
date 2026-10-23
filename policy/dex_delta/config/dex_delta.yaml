@@ -1,0 +1,53 @@
+# 当前：Delta visual-foot mesh stage2 23500，100Hz、scale0.25、动作±18。
+model_path: delta15_gym_mesh_stage2_23500.onnx
+# DEXDELTA：15动作、15x56历史、100Hz。
+# 旧Instinct50Hz模型需同时恢复decimation=2、action_scale=0.5、腰kp=200。
+# action_scale/default_joint_angles 按 joint_names；gains/hold_joint_angles 按 motor_joint_names。
+# gains.policy_torque_limits 仅为15个策略关节的训练参考，不作为发送指令字段。
+# model_path: delta15_50hz_20000_actor_clipped.onnx
+# model_path: delta15_gym_inertia4_13000.onnx
+# model_path: delta15_gym_inertia4_41500.onnx
+# model_path: delta15_gym_reward_ft_42500.onnx
+# model_path: delta15_gym_mesh_stage1_1000.onnx
+motor_num: 29
+actions_size: 15
+dt: 0.01
+joint_names: [hip_pitch_l_joint, hip_roll_l_joint, hip_yaw_l_joint, knee_pitch_l_joint, ankle_pitch_l_joint, ankle_roll_l_joint,
+  hip_pitch_r_joint, hip_roll_r_joint, hip_yaw_r_joint, knee_pitch_r_joint, ankle_pitch_r_joint, ankle_roll_r_joint,
+  waist_yaw_joint, waist_roll_joint, waist_pitch_joint]
+motor_joint_names: [hip_pitch_l_joint, hip_roll_l_joint, hip_yaw_l_joint, knee_pitch_l_joint, ankle_pitch_l_joint,
+  ankle_roll_l_joint, hip_pitch_r_joint, hip_roll_r_joint, hip_yaw_r_joint, knee_pitch_r_joint, ankle_pitch_r_joint,
+  ankle_roll_r_joint, waist_yaw_joint, waist_roll_joint, waist_pitch_joint, shoulder_pitch_l_joint, shoulder_roll_l_joint,
+  shoulder_yaw_l_joint, elbow_pitch_l_joint, elbow_yaw_l_joint, wrist_pitch_l_joint, wrist_roll_l_joint, shoulder_pitch_r_joint,
+  shoulder_roll_r_joint, shoulder_yaw_r_joint, elbow_pitch_r_joint, elbow_yaw_r_joint, wrist_pitch_r_joint, wrist_roll_r_joint]
+control:
+  torque_limit_enabled: true  # 每个主循环在完整目标（含保持关节）上限幅
+  action_scale: 0.25
+  decimation: 1
+normalization:
+  clip_scales:
+    clip_observations: 18.0
+    clip_actions: 18.0
+  obs_scales:
+    command: [2.0, 2.0, 1.0]
+    ang_vel: 1.0
+    dof_vel: 0.05
+size:
+  num_hist: 15
+  observations_size: 56
+gains:
+  # Nm，串联电机顺序的29关节对称限幅；数值取移植时外层multi_amp。
+  # tau = kp * (q_target - q) - kd * dq；此项独立配置，不读取其他状态。
+  torque_limits: [200.0, 200.0, 142.0, 330.0, 55.0, 50.0, 200.0, 200.0, 142.0, 330.0, 55.0, 50.0, 91.0, 91.0, 91.0, 90.0, 60.0, 36.0, 60.0, 36.0, 36.0, 36.0, 90.0, 60.0, 36.0, 60.0, 36.0, 36.0, 36.0]
+  kp: [200, 200, 150, 200, 30, 16.8, 200, 200, 150, 200, 30, 16.8, 400, 400, 400, 200, 200, 200, 200, 80, 80, 80,
+    200, 200, 200, 200, 80, 80, 80]
+  kd: [10, 10, 7.5, 10, 3.75, 2.1, 10, 10, 7.5, 10, 3.75, 2.1, 5, 10, 10, 15, 15, 15, 15, 5, 5, 5, 15, 15, 15, 15,
+    5, 5, 5]
+  policy_torque_limits: [235, 235, 150, 400, 55, 55, 235, 235, 150, 400, 55, 55, 91, 150, 150]
+init_state:
+  default_joint_angles: [-0.25, 0, 0, 0.5, -0.25, 0, -0.25, 0, 0, 0.5, -0.25, 0, 0, 0, 0]
+hold_joint_angles: [-0.25, 0, 0, 0.5, -0.25, 0, -0.25, 0, 0, 0.5, -0.25, 0, 0, 0, 0, 0, 0.3, 0, -0.3, 0, 0, 0, 0,
+  -0.3, 0, -0.3, 0, 0, 0]
+clock:
+  period: 0.8
+  initial_phase: [0.38, 0.88]

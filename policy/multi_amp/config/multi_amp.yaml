@@ -1,13 +1,25 @@
+# Good to use
+model_path: "composed_mlp_v17_hh_40700.onnx"  # HH V17平地MLP，40700轮
+
+
+
+# 新模型使用下方全0.25的action_scale数组；切换时只保留一条未注释model_path。
+# model_path: "hh_multiamp_mlp_v27_action025_flat_6500_clip18.onnx"  # HH V17平地MLP，40700轮
+# model_path: "instinct_multiamp_mlp_action025_terrain_10500.onnx"  # dknt-tuf Instinct地形MLP 10500；全0.25
+# model_path: "hh_multiamp_mlp_v27_action025_flat_6500_clip18.onnx"  # HH V27平地MLP 6500；全0.25，按要求裁剪±18
+# model_path: "instinct_multiamp_mlp_action025_terrain_2700.onnx"  # Instinct510 全0.25 MLP地形RL 2700，动作±18
 # MULTIAMP：29关节，50Hz，64帧历史；通过model_path选择兼容模型。
-# 下列模型共用关节顺序、动作缩放和PD；速度指令语义随训练版本变化，详见Codex导出记录。
+# 模型共用关节顺序和PD；V25/V26/Instinct scalehalf/旧版的action_scale不同，切换时需同步选择。
+# model_path: "composed_mlp_v25_action025_terrain_52200.onnx"  # V25需配套全0.25缩放
+# model_path: "student2500.onnx"  # V26纯MLP蒸馏3500，统一±18
+# model_path: "instinct_multiamp_mlp_scalehalf_terrain_56900.onnx"  # Instinct510 scalehalf，56900轮
 # model_path: "transformer_v11_53300.onnx"
-# model_path: "composed_mlp8500.onnx"  # 原专家组合MLP，8500轮
-model_path: "composed_mlp_v13_11700.onnx"  # V13转向/起身奖励续训，11700轮
-# model_path: "composed_mlp_v13_27200.onnx"  # V13，27200轮
-# model_path: "restore45000.onnx"
-# model_path: "student35001.onnx"
-# model_path: "transformer48000.onnx"
-# model_path: "mlp18500.onnx"
+# model_path: "composed_mlp_v13_11700.onnx"  # V13转向/起身奖励续训，11700轮
+# model_path: "instinct_multiamp_mlp_terrain_53700.onnx"  # Instinct510 地形双模态 MLP，53700轮
+# model_path: "composed_mlp_v17_hh_28800.onnx"  # V13转向/起身奖励续训，11700轮
+# model_path: "composed_mlp_terrain_v16_capsules_v3_33600.onnx"
+# V15/V16地形/V17：匍匐速度以waist_pitch_link水平左轴为前向，yaw为世界Z；IMU仍是pelvis。
+# V15/V16地形/V17使用下方注释的旧逐关节scale；不能搭配当前全0.25数组。
 motor_num: 29
 actions_size: 29
 dt: 0.01                            # 主循环 100Hz
@@ -22,6 +34,7 @@ joint_names: [
 ]
 
 control:
+  torque_limit_enabled: true        # 每个主循环按PD公式限制位置目标；上限见gains.torque_limits
   warm_start_time: 0.3              # 秒；仅入态，从当前串联关节位置渐变至策略目标；0关闭
   decimation: 2                     # 100Hz / 2 = 50Hz
   action_scale: [
@@ -31,6 +44,22 @@ control:
     0.22499999403953552, 0.44999998807907104, 0.25, 0.125, 0.09000000357627869, 0.18000000715255737, 0.18000000715255737,
     0.22499999403953552, 0.44999998807907104, 0.25, 0.125, 0.09000000357627869, 0.18000000715255737, 0.18000000715255737
   ]
+  # V25/V26均使用全0.25：
+  # action_scale: [
+  #   0.25, 0.25, 0.25, 0.25, 0.25, 0.25,
+  #   0.25, 0.25, 0.25, 0.25, 0.25, 0.25,
+  #   0.25, 0.25, 0.25,
+  #   0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25,
+  #   0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25
+  # ]
+  # Instinct510 scalehalf备选：(旧执行缩放 + 0.25) / 2；仅搭配56900模型。
+  # action_scale: [
+  #   0.22291666269302368, 0.22291666269302368, 0.25, 0.2765151560306549, 0.3541666567325592, 0.5342261791229248,
+  #   0.22291666269302368, 0.22291666269302368, 0.25, 0.2765151560306549, 0.3541666567325592, 0.5342261791229248,
+  #   0.15343749523162842, 0.171875, 0.171875,
+  #   0.23749999701976776, 0.3499999940395355, 0.25, 0.1875, 0.17000000178813934, 0.2150000035762787, 0.2150000035762787,
+  #   0.23749999701976776, 0.3499999940395355, 0.25, 0.1875, 0.17000000178813934, 0.2150000035762787, 0.2150000035762787
+  # ]
 
 normalization:
   embedded: true                    # ONNX 内完成归一化，部署端输入原始观测
@@ -43,7 +72,7 @@ size:
   num_hist: 64                       # 从旧到新；首次用当前帧填满，切换模态保留历史
   observations_size: 98             # gyro3 + gravity3 + cmd3 + q29 + dq29 + action29 + mode2
 
-# PD 与力矩参考按电机串联顺序：左腿6、右腿6、腰3、左臂7、右臂7。
+# PD 与力矩上限按串联关节顺序：左腿6、右腿6、腰3、左臂7、右臂7。
 gains:
   kp: [
     300.0, 300.0, 150.0, 330.0, 30.0, 16.8,
@@ -59,14 +88,22 @@ gains:
     5.0, 2.5, 2.5, 5.0, 5.0, 2.0, 2.0,
     5.0, 2.5, 2.5, 5.0, 5.0, 2.0, 2.0
   ]
-  # 训练力矩上限仅作参数参考；CmdMotorCtrl 无对应限幅字段。
+  # Nm，对称±上限；启用后通过限制q_target约束估算PD力矩，并非电机硬限流。
+  # V15/V16地形/V17训练力矩上限参考（备选数值，未启用；下方未注释数组为实际限幅值）：
   torque_limits: [
-    235.0, 235.0, 150.0, 400.0, 55.0, 55.0,
-    235.0, 235.0, 150.0, 400.0, 55.0, 55.0,
-    91.0, 150.0, 150.0,
-    90.0, 90.0, 50.0, 50.0, 36.0, 36.0, 36.0,
-    90.0, 90.0, 50.0, 50.0, 36.0, 36.0, 36.0
+    200.0, 200.0, 142.0, 330.0, 55.0, 50.0,
+    200.0, 200.0, 142.0, 330.0, 55.0, 50.0,
+    91.0, 91.0, 91.0,
+    90.0, 60.0, 36.0, 60.0, 36.0, 36.0, 36.0,
+    90.0, 60.0, 36.0, 60.0, 36.0, 36.0, 36.0
   ]
+  # torque_limits: [
+  #   235.0, 235.0, 150.0, 400.0, 55.0, 55.0,
+  #   235.0, 235.0, 150.0, 400.0, 55.0, 55.0,
+  #   91.0, 150.0, 150.0,
+  #   90.0, 90.0, 50.0, 50.0, 36.0, 36.0, 36.0,
+  #   90.0, 90.0, 50.0, 50.0, 36.0, 36.0, 36.0
+  # ]
 
 init_state:
   # 训练动作偏置：q_target = default_joint_angles + action_scale * action。

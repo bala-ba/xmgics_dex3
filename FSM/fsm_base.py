@@ -24,6 +24,8 @@ class FSMStateName(Enum):
     STAND = 10     # 站立/迈步策略状态
     WALKDEPTH100HZ = 11 # 深度感知行走策略状态
     MULTIAMP = 12 # Dex29 student: stand/walk <-> prone
+    DEXAMP = 13   # Dex23 AMP; independent internal enum, websocket ID is 4
+    DEXDELTA = 15 # Dex15 Delta/MSL
 
 class FSMState(ABC):
     """FSM状态抽象基类"""

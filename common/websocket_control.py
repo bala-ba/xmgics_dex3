@@ -64,6 +64,8 @@ EVENT_TO_FSM = {
     "enable_standing_policy": "gotoWALKAMP",
     # "enable_robust_policy": "gotoWALKDEPTH100HZ",
     "enable_robust_policy": "gotoMULTIAMP",  # dex 盲走 AMP v2 (kb $)
+    # "enable_robust_policy": "gotoDEXAMP",
+    # "enable_robust_policy": "gotoDEXDELTA",
 }
 
 # velocity nudge events (keyboard-style clients): name -> (axis, delta)
@@ -79,6 +81,8 @@ NUDGE_EVENTS = {
 
 # FSM state command -> numeric state id published in the kernel block
 COMMAND_TO_STATE_ID = {
+    "gotoDEXAMP": 4,
+    "gotoDEXDELTA": 4,
     "gotoSTOP": 1,
     "gotoZERO": 2,
     "gotoWALKAMP": 3,
@@ -98,6 +102,8 @@ CONTROL_SETTINGS = [
     {"event": "enable_standing_policy", "kb_key": "1"},
     {"event": "enable_warking_policy", "kb_key": "2"},
     {"event": "enable_robust_policy", "kb_key": "3"},
+    {"event": "enable_dex_amp_policy", "kb_key": "4"},
+    {"event": "enable_dex_delta_policy", "kb_key": "5"},
     {"event": "policy_switch", "kb_key": "$"},
     {"event": "velo_x_increase", "kb_key": "i"},
     {"event": "velo_x_decrease", "kb_key": "k"},

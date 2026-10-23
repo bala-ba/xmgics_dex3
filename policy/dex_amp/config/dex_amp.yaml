@@ -1,0 +1,59 @@
+# model_path: dex23_amp_isaaclab_terrain_guards_55000.onnx  # 额外脚部胶囊，55000轮
+model_path: dex23_amp_isaaclab_terrain_base_48700.onnx  # 基础胶囊，48700轮
+
+# 20261023 push25/rate05 地形微调；部署参数兼容，保留当前有效选择。
+# 20261023 新导出的两份 Instinct510 地形策略可使用当前参数；选择时仅保留一条有效 model_path。
+# model_path: dex23_amp_isaaclab_terrain_base_46000.onnx  # Instinct510 20261022 dw04/tread4050 基础胶囊，46000轮
+# model_path: dex23_amp_isaaclab_terrain_guards_46500.onnx  # Instinct510 20261022 dw04/tread4050 额外脚部胶囊，46500轮
+# 四份地形策略均可使用当前参数；选择时仅保留一条有效 model_path。
+# model_path: dex23_amp_isaaclab_terrain_base_45200.onnx  # IsaacLab 基础胶囊，无额外脚部保护胶囊
+# model_path: dex23_amp_isaaclab_terrain_guards_45800.onnx  # IsaacLab 额外脚尖/脚跟胶囊 v2
+# model_path: dex23_amp_v35_history8_scale025_49100.onnx  # mjlab V35 基础胶囊，无额外脚部保护胶囊
+# model_path: dex23_amp_v36_history8_scale025_48400.onnx  # mjlab V36 额外脚部胶囊 + stumble
+# V33平地/full-DR与V34地形；23动作全0.25、8帧、50Hz，切换仅改model_path。
+# model_path: dex23_amp_v34_history8_scale025_34100.onnx
+# model_path: dex23_amp_v33_original_history8_scale025_29999.onnx  # 平地 original-DR
+# model_path: dex23_amp_v34_history8_scale025_34100.onnx  # V34 Perlin/坡地，胶囊碰撞训练
+# 腰部kp=200，其余6关节继续使用本状态保持位置和PD。
+# dex_amp: 23 动作，8x78 观测历史，50Hz。model_path 相对本状态 model/。
+# action_scale/default_joint_angles 按 joint_names；gains/hold_joint_angles 按串联电机顺序。
+# 非策略关节使用 hold_joint_angles 和 gains，不读取其他状态或 ONNX metadata 的参数。
+# warm_start_time 显式保留旧代码实际生效的 0.3s；不采用原来未被读取的顶层 0.0。
+# model_path: dex23_amp_v28_history8_scale025_8800.onnx
+# model_path: dex23_amp_v29_history8_scale025_19800.onnx
+# model_path: dex23_amp_v29_history8_scale025_23900.onnx
+# model_path: dex23_amp_v32_history8_scale025_23500.onnx  # full-DR微调；与V29部署参数相同
+motor_num: 29
+actions_size: 23
+dt: 0.01
+joint_names: [hip_pitch_l_joint, hip_roll_l_joint, hip_yaw_l_joint, knee_pitch_l_joint, ankle_pitch_l_joint, ankle_roll_l_joint,
+  hip_pitch_r_joint, hip_roll_r_joint, hip_yaw_r_joint, knee_pitch_r_joint, ankle_pitch_r_joint, ankle_roll_r_joint,
+  waist_yaw_joint, waist_roll_joint, waist_pitch_joint, shoulder_pitch_l_joint, shoulder_roll_l_joint, shoulder_yaw_l_joint,
+  elbow_pitch_l_joint, shoulder_pitch_r_joint, shoulder_roll_r_joint, shoulder_yaw_r_joint, elbow_pitch_r_joint]
+control:
+  torque_limit_enabled: true  # 每个主循环在完整目标（含保持关节）上限幅
+  action_scale: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25]
+  decimation: 2
+  warm_start_time: 0.3
+normalization:
+  clip_scales:
+    clip_observations: .inf  # V29不裁剪原始观测；均值/方差归一化已嵌入ONNX
+    clip_actions: 18.0
+  obs_scales:
+    ang_vel: 1.0
+    dof_vel: 1.0
+size:
+  num_hist: 8
+  observations_size: 78
+gains:
+  # Nm，串联电机顺序的29关节对称限幅；数值取移植时外层multi_amp。
+  # tau = kp * (q_target - q) - kd * dq；此项独立配置，不读取其他状态。
+  torque_limits: [200.0, 200.0, 142.0, 330.0, 55.0, 50.0, 200.0, 200.0, 142.0, 330.0, 55.0, 50.0, 91.0, 91.0, 91.0, 90.0, 60.0, 36.0, 60.0, 36.0, 36.0, 36.0, 90.0, 60.0, 36.0, 60.0, 36.0, 36.0, 36.0]
+  kp: [300.0, 300.0, 150.0, 330.0, 30.0, 16.8, 300.0, 300.0, 150.0, 330.0, 30.0, 16.8, 200.0, 200.0, 200.0, 100.0, 50.0, 50.0, 100.0, 80.0, 80.0, 80.0, 100.0, 50.0, 50.0, 100.0, 80.0, 80.0, 80.0]
+  kd: [10.0, 10.0, 5.0, 10.0, 2.5, 1.4, 10.0, 10.0, 5.0, 10.0, 2.5, 1.4, 5.0, 10.0, 10.0, 5.0, 2.5, 2.5, 5.0, 5.0,
+    5.0, 5.0, 5.0, 2.5, 2.5, 5.0, 5.0, 5.0, 5.0]
+init_state:
+  default_joint_angles: [-0.25, 0.0, 0.0, 0.5, -0.25, 0.0, -0.25, 0.0, 0.0, 0.5, -0.25, 0.0, 0.0, 0.0, 0.0, 0.0,
+    0.3, 0.0, -0.3, 0.0, -0.3, 0.0, -0.3]
+hold_joint_angles: [-0.25, 0.0, 0.0, 0.5, -0.25, 0.0, -0.25, 0.0, 0.0, 0.5, -0.25, 0.0, 0.0, 0.0, 0.0, 0.0, 0.3,
+  0.0, -0.3, 0.0, 0.0, 0.0, 0.0, -0.3, 0.0, -0.3, 0.0, 0.0, 0.0]

@@ -178,6 +178,8 @@ class RobotInterfaceImpl(RobotInterface):
             FSMStateName.WALKDEPTH,
             FSMStateName.WALKDEPTH100HZ,
             FSMStateName.MULTIAMP,
+            FSMStateName.DEXAMP,
+            FSMStateName.DEXDELTA,
         }
 
     def update_param(self, current_state: FSMStateName = None):
@@ -254,22 +256,9 @@ class RobotInterfaceImpl(RobotInterface):
         self.depth_crop_h_ = self.depth_h_ - self.depth_crop_t_ - self.depth_crop_b_
 
     def _load_control_status(self, config: Dict[str, Any]):
-        # 字符串命令到枚举值的映射
-        state_to_FSMState = {
-            "STOP": FSMStateName.STOP,
-            "ZERO": FSMStateName.ZERO,
-            "WALKAMP": FSMStateName.WALKAMP,
-            "BEYONDMIMIC": FSMStateName.BEYONDMIMIC,
-            "BEYONDZERO": FSMStateName.BEYONDZERO,
-            "WALKLION": FSMStateName.WALKLION,
-            "WALKLIONDWAQ": FSMStateName.WALKLIONDWAQ,
-            "LIONZERO": FSMStateName.LIONZERO,
-            "POLICYZERO": FSMStateName.POLICYZERO,
-            "WALKDEPTH": FSMStateName.WALKDEPTH,
-            "STAND": FSMStateName.STAND,
-            "WALKDEPTH100HZ": FSMStateName.WALKDEPTH100HZ,
-            "MULTIAMP": FSMStateName.MULTIAMP,
-        }
+        # Resolve names from the enum so adding a state does not require a
+        # second manual mapping. The YAML still explicitly grants group access.
+        state_to_FSMState = FSMStateName.__members__
         self.waist_control_status = [state_to_FSMState[state] for state in config.get('waist_control_status')]
         self.legs_control_status = [state_to_FSMState[state] for state in config.get('legs_control_status')]
         self.arms_control_status = [state_to_FSMState[state] for state in config.get('arms_control_status')]
@@ -612,10 +601,11 @@ class RobotInterfaceImpl(RobotInterface):
             # 直接赋值
             self.robot_data_.q_a_p_[robotdata_index] = status.pos
             self.robot_data_.q_dot_a_p_[robotdata_index] = status.speed
-            self.robot_data_.tau_a_p_[
-                robotdata_index] = status.current * self.ct_scale[min(
-                    index,
-                    len(self.ct_scale) - 1)]
+            # MuJoCo publishes torque (Nm) in current; hardware publishes current (A).
+            torque = status.current
+            if not self.sim:
+                torque *= self.ct_scale[min(index, len(self.ct_scale) - 1)]
+            self.robot_data_.tau_a_p_[robotdata_index] = torque
             self.robot_data_.temperature_a[
                 robotdata_index - self.floating_base_dof] = status.temperature
 

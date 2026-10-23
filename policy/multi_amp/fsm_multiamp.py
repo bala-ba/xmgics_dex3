@@ -97,6 +97,15 @@ class FSMStateMULTIAMP(FSMState):
         if not np.isclose(self.dt * self.decimation, 0.02):
             raise ValueError("MULTIAMP requires 50Hz inference")
         self.clock = TickDecimator(self.decimation, self.dt, robot_data.control_dt_)
+        self.torque_limit_enabled = cfg["control"]["torque_limit_enabled"]
+        if not isinstance(self.torque_limit_enabled, bool):
+            raise ValueError("MULTIAMP torque_limit_enabled must be boolean")
+        if self.torque_limit_enabled and (
+            np.any(self.kp <= 0) or np.any(self.torque_limits <= 0)
+        ):
+            raise ValueError("MULTIAMP torque limiting requires positive kp and torque_limits")
+        # Hold the unbounded, warm-started target between policy ticks.
+        self._position_target = np.zeros(self.motor_num, dtype=np.float64)
         self.warm_start_time = float(cfg["control"]["warm_start_time"])
         if not np.isfinite(self.warm_start_time) or self.warm_start_time < 0:
             raise ValueError("MULTIAMP warm_start_time must be finite and nonnegative")
@@ -199,30 +208,53 @@ class FSMStateMULTIAMP(FSMState):
             self.history[0, -1] = frame
         return self.history
 
+    def _limit_position_target(self, q_target):
+        # tau = kp * (q_target - q) - kd * dq; desired velocity/feedforward are zero.
+        # Use float64 for bounds to avoid cancellation at saturated targets.
+        rd = self.robot_data_
+        q = np.asarray(rd.get_joint_pos(), dtype=np.float64)[self.policy_to_motor]
+        dq = np.asarray(rd.get_joint_vel(), dtype=np.float64)[self.policy_to_motor]
+        if not np.isfinite(q).all() or not np.isfinite(dq).all():
+            raise FloatingPointError("Invalid MULTIAMP torque-limit feedback")
+        damping = self.kd.astype(np.float64) * dq
+        lower = q + (damping - self.torque_limits) / self.kp
+        upper = q + (damping + self.torque_limits) / self.kp
+        return np.clip(q_target, lower, upper)
+
     def run(self, flag):
-        if not self.clock.step():
+        infer_due = self.clock.step()
+        if infer_due:
+            self.compute_observation()
+            try:
+                result = self.session.run(["action"], {"history": self.history})[0]
+            except Exception as exc:
+                raise RuntimeError(
+                    "MULTIAMP inference failed; refusing stale action"
+                ) from exc
+            if (
+                result.shape != (1, 29)
+                or not np.isfinite(result).all()
+                or np.max(np.abs(result)) > self.action_clip + 1e-5
+            ):
+                raise FloatingPointError("Invalid MULTIAMP action")
+            self.action[:] = result[
+                0
+            ]  # Graph includes normalization and clip exactly once.
+            q_target = self.offset + self.scale * self.action
+            if self._warmup_inference_counter < self._warm_start_steps:
+                self._warmup_inference_counter += 1
+                blend = self._warmup_inference_counter / float(self._warm_start_steps)
+                q_target = (1.0 - blend) * self._warm_start_pose + blend * q_target
+            self._position_target[:] = q_target
+            # Preserve the trained previous-action observation (network output).
+            self.previous_action[:] = self.action
+            self.inference_count += 1
+        elif not self.torque_limit_enabled:
             return
-        self.compute_observation()
-        try:
-            result = self.session.run(["action"], {"history": self.history})[0]
-        except Exception as exc:
-            raise RuntimeError(
-                "MULTIAMP inference failed; refusing stale action"
-            ) from exc
-        if (
-            result.shape != (1, 29)
-            or not np.isfinite(result).all()
-            or np.max(np.abs(result)) > self.action_clip + 1e-5
-        ):
-            raise FloatingPointError("Invalid MULTIAMP action")
-        self.action[:] = result[
-            0
-        ]  # Graph includes normalization and clip exactly once.
-        q_target = self.offset + self.scale * self.action
-        if self._warmup_inference_counter < self._warm_start_steps:
-            self._warmup_inference_counter += 1
-            blend = self._warmup_inference_counter / float(self._warm_start_steps)
-            q_target = (1.0 - blend) * self._warm_start_pose + blend * q_target
+
+        q_target = self._position_target
+        if self.torque_limit_enabled:
+            q_target = self._limit_position_target(q_target)
         rd = self.robot_data_
         base = rd.whole_joint_num - rd.motor_num
         rd.q_d_s_[base + self.policy_to_motor] = q_target
@@ -230,8 +262,6 @@ class FSMStateMULTIAMP(FSMState):
         rd.tau_d_s_[base:] = 0
         rd.joint_kp_s_[self.policy_to_motor] = self.kp
         rd.joint_kd_s_[self.policy_to_motor] = self.kd
-        self.previous_action[:] = self.action
-        self.inference_count += 1
 
     def on_exit(self):
         print("[MULTIAMP] exit")
@@ -239,11 +269,11 @@ class FSMStateMULTIAMP(FSMState):
     def check_transition(self, flag):
         return {
             "gotoMULTIAMP": FSMStateName.MULTIAMP,
-            # 'gotoDEXDELTA': FSMStateName.DEXDELTA,
+            'gotoDEXDELTA': FSMStateName.DEXDELTA,
             "gotoSTOP": FSMStateName.STOP,
             "gotoZERO": FSMStateName.ZERO,
             # 'gotoDEXBLINDAMP': FSMStateName.DEXBLINDAMP,
-            # 'gotoDEXAMP': FSMStateName.DEXAMP,
+            'gotoDEXAMP': FSMStateName.DEXAMP,
             "gotoWALKAMP": FSMStateName.WALKAMP,
             "gotoWALKDEPTH": FSMStateName.WALKDEPTH,
             "gotoWALKDEPTH100HZ": FSMStateName.WALKDEPTH100HZ,

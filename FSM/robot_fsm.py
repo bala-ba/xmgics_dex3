@@ -18,6 +18,8 @@ from policy.walk_depth.fsm_walkdepth import FSMStateWALKDEPTH
 from policy.stand.fsm_stand import FSMStateSTAND
 from policy.walk_depth_100hz.fsm_walkdepth_100hz import FSMStateWALKDEPTH100HZ
 from policy.multi_amp.fsm_multiamp import FSMStateMULTIAMP
+from policy.dex_amp.fsm_dexamp import FSMStateDEXAMP
+from policy.dex_delta.fsm_dexdelta import FSMStateDEXDELTA
 from common.robot_data import RobotData
 from common.joystick import ControlFlag
 import functools
@@ -76,6 +78,8 @@ class RobotFSMImpl(RobotFSM):
             self.robot_data_
         )
         self.state_objects[FSMStateName.MULTIAMP] = FSMStateMULTIAMP(self.robot_data_)
+        self.state_objects[FSMStateName.DEXAMP] = FSMStateDEXAMP(self.robot_data_)
+        self.state_objects[FSMStateName.DEXDELTA] = FSMStateDEXDELTA(self.robot_data_)
         # TODO: 添加其他状态对象
 
     # @timing_decorator
