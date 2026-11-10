@@ -1,5 +1,4 @@
-<?xml version='1.0' encoding='utf-8'?>
-<mujoco model="tiangong3_sonic_29dof">
+<mujoco model="tiangong3_xmujoco_29dof">
   <compiler angle="radian" fusestatic="false" inertiafromgeom="false" />
   <option timestep="0.001" integrator="implicitfast" solver="CG" iterations="100" />
   <visual>
@@ -9,45 +8,45 @@
   <asset>
     <texture name="floor_tex" type="2d" builtin="checker" rgb1="0.15 0.19 0.23" rgb2="0.23 0.28 0.32" width="512" height="512" />
     <material name="floor_mat" texture="floor_tex" texrepeat="8 8" reflectance="0.12" />
-    <mesh name="mesh_0" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/pelvis.STL" />
-    <mesh name="mesh_1" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/hip_pitch_l_link.STL" />
-    <mesh name="mesh_2" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/hip_roll_l_link.STL" />
-    <mesh name="mesh_3" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/hip_yaw_l_link.STL" />
-    <mesh name="mesh_4" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/knee_pitch_l_link.STL" />
-    <mesh name="mesh_5" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/ankle_pitch_l_link.STL" />
-    <mesh name="mesh_6" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/ankle_roll_l_link.STL" />
-    <mesh name="mesh_7" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/hip_pitch_r_link.STL" />
-    <mesh name="mesh_8" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/hip_roll_r_link.STL" />
-    <mesh name="mesh_9" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/hip_yaw_r_link.STL" />
-    <mesh name="mesh_10" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/knee_pitch_r_link.STL" />
-    <mesh name="mesh_11" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/ankle_pitch_r_link.STL" />
-    <mesh name="mesh_12" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/ankle_roll_r_link.STL" />
-    <mesh name="mesh_13" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/waist_yaw_link.STL" />
-    <mesh name="mesh_14" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/waist_roll_link.STL" />
-    <mesh name="mesh_15" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/waist_pitch_link.STL" />
-    <mesh name="mesh_16" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/head_yaw_link.STL" />
-    <mesh name="mesh_17" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/head_pitch_link.STL" />
-    <mesh name="mesh_18" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/camera_head_link.STL" />
-    <mesh name="mesh_19" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/radar_head_link.STL" />
-    <mesh name="mesh_20" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/imu_head_link.STL" />
-    <mesh name="mesh_21" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/shoulder_pitch_l_link.STL" />
-    <mesh name="mesh_22" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/shoulder_roll_l_link.STL" />
-    <mesh name="mesh_23" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/shoulder_yaw_l_link.STL" />
-    <mesh name="mesh_24" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/elbow_pitch_l_link.STL" />
-    <mesh name="mesh_25" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/elbow_yaw_l_link.STL" />
-    <mesh name="mesh_26" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/wrist_pitch_l_link.STL" />
-    <mesh name="mesh_27" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/wrist_roll_l_link.STL" />
-    <mesh name="mesh_28" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/left_tcp_link.STL" />
-    <mesh name="mesh_29" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/shoulder_pitch_r_link.STL" />
-    <mesh name="mesh_30" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/shoulder_roll_r_link.STL" />
-    <mesh name="mesh_31" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/shoulder_yaw_r_link.STL" />
-    <mesh name="mesh_32" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/elbow_pitch_r_link.STL" />
-    <mesh name="mesh_33" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/elbow_yaw_r_link.STL" />
-    <mesh name="mesh_34" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/wrist_pitch_r_link.STL" />
-    <mesh name="mesh_35" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/wrist_roll_r_link.STL" />
-    <mesh name="mesh_36" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/right_tcp_link.STL" />
-    <mesh name="mesh_37" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/camera_body_front_link.STL" />
-    <mesh name="mesh_38" scale="1 1 1" file="../../../TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/imu_waist_link.STL" />
+    <mesh name="mesh_0" scale="1 1 1" file="meshes_new/pelvis.STL" />
+    <mesh name="mesh_1" scale="1 1 1" file="meshes_new/hip_pitch_l_link.STL" />
+    <mesh name="mesh_2" scale="1 1 1" file="meshes_new/hip_roll_l_link.STL" />
+    <mesh name="mesh_3" scale="1 1 1" file="meshes_new/hip_yaw_l_link.STL" />
+    <mesh name="mesh_4" scale="1 1 1" file="meshes_new/knee_pitch_l_link.STL" />
+    <mesh name="mesh_5" scale="1 1 1" file="meshes_new/ankle_pitch_l_link.STL" />
+    <mesh name="mesh_6" scale="1 1 1" file="meshes_new/ankle_roll_l_link.STL" />
+    <mesh name="mesh_7" scale="1 1 1" file="meshes_new/hip_pitch_r_link.STL" />
+    <mesh name="mesh_8" scale="1 1 1" file="meshes_new/hip_roll_r_link.STL" />
+    <mesh name="mesh_9" scale="1 1 1" file="meshes_new/hip_yaw_r_link.STL" />
+    <mesh name="mesh_10" scale="1 1 1" file="meshes_new/knee_pitch_r_link.STL" />
+    <mesh name="mesh_11" scale="1 1 1" file="meshes_new/ankle_pitch_r_link.STL" />
+    <mesh name="mesh_12" scale="1 1 1" file="meshes_new/ankle_roll_r_link.STL" />
+    <mesh name="mesh_13" scale="1 1 1" file="meshes_new/waist_yaw_link.STL" />
+    <mesh name="mesh_14" scale="1 1 1" file="meshes_new/waist_roll_link.STL" />
+    <mesh name="mesh_15" scale="1 1 1" file="meshes_new/waist_pitch_link.STL" />
+    <mesh name="mesh_16" scale="1 1 1" file="meshes_new/head_yaw_link.STL" />
+    <mesh name="mesh_17" scale="1 1 1" file="meshes_new/head_pitch_link.STL" />
+    <mesh name="mesh_18" scale="1 1 1" file="meshes_new/camera_head_link.STL" />
+    <mesh name="mesh_19" scale="1 1 1" file="meshes_new/radar_head_link.STL" />
+    <mesh name="mesh_20" scale="1 1 1" file="meshes_new/imu_head_link.STL" />
+    <mesh name="mesh_21" scale="1 1 1" file="meshes_new/shoulder_pitch_l_link.STL" />
+    <mesh name="mesh_22" scale="1 1 1" file="meshes_new/shoulder_roll_l_link.STL" />
+    <mesh name="mesh_23" scale="1 1 1" file="meshes_new/shoulder_yaw_l_link.STL" />
+    <mesh name="mesh_24" scale="1 1 1" file="meshes_new/elbow_pitch_l_link.STL" />
+    <mesh name="mesh_25" scale="1 1 1" file="meshes_new/elbow_yaw_l_link.STL" />
+    <mesh name="mesh_26" scale="1 1 1" file="meshes_new/wrist_pitch_l_link.STL" />
+    <mesh name="mesh_27" scale="1 1 1" file="meshes_new/wrist_roll_l_link.STL" />
+    <mesh name="mesh_28" scale="1 1 1" file="meshes_new/left_tcp_link.STL" />
+    <mesh name="mesh_29" scale="1 1 1" file="meshes_new/shoulder_pitch_r_link.STL" />
+    <mesh name="mesh_30" scale="1 1 1" file="meshes_new/shoulder_roll_r_link.STL" />
+    <mesh name="mesh_31" scale="1 1 1" file="meshes_new/shoulder_yaw_r_link.STL" />
+    <mesh name="mesh_32" scale="1 1 1" file="meshes_new/elbow_pitch_r_link.STL" />
+    <mesh name="mesh_33" scale="1 1 1" file="meshes_new/elbow_yaw_r_link.STL" />
+    <mesh name="mesh_34" scale="1 1 1" file="meshes_new/wrist_pitch_r_link.STL" />
+    <mesh name="mesh_35" scale="1 1 1" file="meshes_new/wrist_roll_r_link.STL" />
+    <mesh name="mesh_36" scale="1 1 1" file="meshes_new/right_tcp_link.STL" />
+    <mesh name="mesh_37" scale="1 1 1" file="meshes_new/camera_body_front_link.STL" />
+    <mesh name="mesh_38" scale="1 1 1" file="meshes_new/imu_waist_link.STL" />
   </asset>
   <worldbody>
     <light pos="2 -2 4" dir="-0.4 0.4 -1" diffuse="0.8 0.8 0.8" />
@@ -265,6 +264,7 @@
         <inertial mass="0.008" pos="0.001734 0.001046 -0.009253" fullinertia="1e-06 1e-06 1e-06 0 0 0" />
         <geom name="imu_waist_link_visual_0" pos="0 0 0" quat="1 0 0 0" type="mesh" mesh="mesh_38" contype="0" conaffinity="0" group="2" density="0" rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
       </body>
+      <site name="imu" pos="0 0 0" quat="1 0 0 0" size="0.01" group="5" />
     </body>
   </worldbody>
   <actuator>
@@ -298,4 +298,99 @@
     <motor name="motor_wrist_pitch_r_joint" joint="wrist_pitch_r_joint" gear="1" ctrllimited="true" ctrlrange="-25 25" />
     <motor name="motor_wrist_roll_r_joint" joint="wrist_roll_r_joint" gear="1" ctrllimited="true" ctrlrange="-25 25" />
   </actuator>
+  <sensor>
+    <framequat name="orientation" objtype="site" objname="imu" />
+    <framepos name="position" objtype="site" objname="imu" />
+    <framelinvel name="linear-velocity" objtype="site" objname="imu" />
+    <gyro name="angular-velocity" site="imu" />
+    <accelerometer name="linear-acceleration" site="imu" />
+    <magnetometer name="magnetometer" site="imu" />
+    <jointpos name="hip_pitch_l_joint_pos" joint="hip_pitch_l_joint" />
+    <jointvel name="hip_pitch_l_joint_vel" joint="hip_pitch_l_joint" />
+    <jointactuatorfrc name="hip_pitch_l_joint_torque" joint="hip_pitch_l_joint" />
+    <jointpos name="hip_roll_l_joint_pos" joint="hip_roll_l_joint" />
+    <jointvel name="hip_roll_l_joint_vel" joint="hip_roll_l_joint" />
+    <jointactuatorfrc name="hip_roll_l_joint_torque" joint="hip_roll_l_joint" />
+    <jointpos name="hip_yaw_l_joint_pos" joint="hip_yaw_l_joint" />
+    <jointvel name="hip_yaw_l_joint_vel" joint="hip_yaw_l_joint" />
+    <jointactuatorfrc name="hip_yaw_l_joint_torque" joint="hip_yaw_l_joint" />
+    <jointpos name="knee_pitch_l_joint_pos" joint="knee_pitch_l_joint" />
+    <jointvel name="knee_pitch_l_joint_vel" joint="knee_pitch_l_joint" />
+    <jointactuatorfrc name="knee_pitch_l_joint_torque" joint="knee_pitch_l_joint" />
+    <jointpos name="ankle_pitch_l_joint_pos" joint="ankle_pitch_l_joint" />
+    <jointvel name="ankle_pitch_l_joint_vel" joint="ankle_pitch_l_joint" />
+    <jointactuatorfrc name="ankle_pitch_l_joint_torque" joint="ankle_pitch_l_joint" />
+    <jointpos name="ankle_roll_l_joint_pos" joint="ankle_roll_l_joint" />
+    <jointvel name="ankle_roll_l_joint_vel" joint="ankle_roll_l_joint" />
+    <jointactuatorfrc name="ankle_roll_l_joint_torque" joint="ankle_roll_l_joint" />
+    <jointpos name="hip_pitch_r_joint_pos" joint="hip_pitch_r_joint" />
+    <jointvel name="hip_pitch_r_joint_vel" joint="hip_pitch_r_joint" />
+    <jointactuatorfrc name="hip_pitch_r_joint_torque" joint="hip_pitch_r_joint" />
+    <jointpos name="hip_roll_r_joint_pos" joint="hip_roll_r_joint" />
+    <jointvel name="hip_roll_r_joint_vel" joint="hip_roll_r_joint" />
+    <jointactuatorfrc name="hip_roll_r_joint_torque" joint="hip_roll_r_joint" />
+    <jointpos name="hip_yaw_r_joint_pos" joint="hip_yaw_r_joint" />
+    <jointvel name="hip_yaw_r_joint_vel" joint="hip_yaw_r_joint" />
+    <jointactuatorfrc name="hip_yaw_r_joint_torque" joint="hip_yaw_r_joint" />
+    <jointpos name="knee_pitch_r_joint_pos" joint="knee_pitch_r_joint" />
+    <jointvel name="knee_pitch_r_joint_vel" joint="knee_pitch_r_joint" />
+    <jointactuatorfrc name="knee_pitch_r_joint_torque" joint="knee_pitch_r_joint" />
+    <jointpos name="ankle_pitch_r_joint_pos" joint="ankle_pitch_r_joint" />
+    <jointvel name="ankle_pitch_r_joint_vel" joint="ankle_pitch_r_joint" />
+    <jointactuatorfrc name="ankle_pitch_r_joint_torque" joint="ankle_pitch_r_joint" />
+    <jointpos name="ankle_roll_r_joint_pos" joint="ankle_roll_r_joint" />
+    <jointvel name="ankle_roll_r_joint_vel" joint="ankle_roll_r_joint" />
+    <jointactuatorfrc name="ankle_roll_r_joint_torque" joint="ankle_roll_r_joint" />
+    <jointpos name="waist_yaw_joint_pos" joint="waist_yaw_joint" />
+    <jointvel name="waist_yaw_joint_vel" joint="waist_yaw_joint" />
+    <jointactuatorfrc name="waist_yaw_joint_torque" joint="waist_yaw_joint" />
+    <jointpos name="waist_roll_joint_pos" joint="waist_roll_joint" />
+    <jointvel name="waist_roll_joint_vel" joint="waist_roll_joint" />
+    <jointactuatorfrc name="waist_roll_joint_torque" joint="waist_roll_joint" />
+    <jointpos name="waist_pitch_joint_pos" joint="waist_pitch_joint" />
+    <jointvel name="waist_pitch_joint_vel" joint="waist_pitch_joint" />
+    <jointactuatorfrc name="waist_pitch_joint_torque" joint="waist_pitch_joint" />
+    <jointpos name="shoulder_pitch_l_joint_pos" joint="shoulder_pitch_l_joint" />
+    <jointvel name="shoulder_pitch_l_joint_vel" joint="shoulder_pitch_l_joint" />
+    <jointactuatorfrc name="shoulder_pitch_l_joint_torque" joint="shoulder_pitch_l_joint" />
+    <jointpos name="shoulder_roll_l_joint_pos" joint="shoulder_roll_l_joint" />
+    <jointvel name="shoulder_roll_l_joint_vel" joint="shoulder_roll_l_joint" />
+    <jointactuatorfrc name="shoulder_roll_l_joint_torque" joint="shoulder_roll_l_joint" />
+    <jointpos name="shoulder_yaw_l_joint_pos" joint="shoulder_yaw_l_joint" />
+    <jointvel name="shoulder_yaw_l_joint_vel" joint="shoulder_yaw_l_joint" />
+    <jointactuatorfrc name="shoulder_yaw_l_joint_torque" joint="shoulder_yaw_l_joint" />
+    <jointpos name="elbow_pitch_l_joint_pos" joint="elbow_pitch_l_joint" />
+    <jointvel name="elbow_pitch_l_joint_vel" joint="elbow_pitch_l_joint" />
+    <jointactuatorfrc name="elbow_pitch_l_joint_torque" joint="elbow_pitch_l_joint" />
+    <jointpos name="elbow_yaw_l_joint_pos" joint="elbow_yaw_l_joint" />
+    <jointvel name="elbow_yaw_l_joint_vel" joint="elbow_yaw_l_joint" />
+    <jointactuatorfrc name="elbow_yaw_l_joint_torque" joint="elbow_yaw_l_joint" />
+    <jointpos name="wrist_pitch_l_joint_pos" joint="wrist_pitch_l_joint" />
+    <jointvel name="wrist_pitch_l_joint_vel" joint="wrist_pitch_l_joint" />
+    <jointactuatorfrc name="wrist_pitch_l_joint_torque" joint="wrist_pitch_l_joint" />
+    <jointpos name="wrist_roll_l_joint_pos" joint="wrist_roll_l_joint" />
+    <jointvel name="wrist_roll_l_joint_vel" joint="wrist_roll_l_joint" />
+    <jointactuatorfrc name="wrist_roll_l_joint_torque" joint="wrist_roll_l_joint" />
+    <jointpos name="shoulder_pitch_r_joint_pos" joint="shoulder_pitch_r_joint" />
+    <jointvel name="shoulder_pitch_r_joint_vel" joint="shoulder_pitch_r_joint" />
+    <jointactuatorfrc name="shoulder_pitch_r_joint_torque" joint="shoulder_pitch_r_joint" />
+    <jointpos name="shoulder_roll_r_joint_pos" joint="shoulder_roll_r_joint" />
+    <jointvel name="shoulder_roll_r_joint_vel" joint="shoulder_roll_r_joint" />
+    <jointactuatorfrc name="shoulder_roll_r_joint_torque" joint="shoulder_roll_r_joint" />
+    <jointpos name="shoulder_yaw_r_joint_pos" joint="shoulder_yaw_r_joint" />
+    <jointvel name="shoulder_yaw_r_joint_vel" joint="shoulder_yaw_r_joint" />
+    <jointactuatorfrc name="shoulder_yaw_r_joint_torque" joint="shoulder_yaw_r_joint" />
+    <jointpos name="elbow_pitch_r_joint_pos" joint="elbow_pitch_r_joint" />
+    <jointvel name="elbow_pitch_r_joint_vel" joint="elbow_pitch_r_joint" />
+    <jointactuatorfrc name="elbow_pitch_r_joint_torque" joint="elbow_pitch_r_joint" />
+    <jointpos name="elbow_yaw_r_joint_pos" joint="elbow_yaw_r_joint" />
+    <jointvel name="elbow_yaw_r_joint_vel" joint="elbow_yaw_r_joint" />
+    <jointactuatorfrc name="elbow_yaw_r_joint_torque" joint="elbow_yaw_r_joint" />
+    <jointpos name="wrist_pitch_r_joint_pos" joint="wrist_pitch_r_joint" />
+    <jointvel name="wrist_pitch_r_joint_vel" joint="wrist_pitch_r_joint" />
+    <jointactuatorfrc name="wrist_pitch_r_joint_torque" joint="wrist_pitch_r_joint" />
+    <jointpos name="wrist_roll_r_joint_pos" joint="wrist_roll_r_joint" />
+    <jointvel name="wrist_roll_r_joint_vel" joint="wrist_roll_r_joint" />
+    <jointactuatorfrc name="wrist_roll_r_joint_torque" joint="wrist_roll_r_joint" />
+  </sensor>
 </mujoco>

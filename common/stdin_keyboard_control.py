@@ -81,7 +81,7 @@ class KeyboardController:
     def _load_config(self):
         """加载YAML配置文件"""
         try:
-            config_path = os.path.join('.', "config", "dex_config.yaml")
+            config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "config", "dex_config.yaml")
             
             with open(config_path, 'r') as file:
                 config = yaml.safe_load(file)

@@ -23,7 +23,7 @@ from policy.instant_track.runtime import SERIAL_JOINT_NAMES
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--model', type=Path, default=ROOT.parent/'xmujoco/urdf/tiangong3_29dof_dex_armature.xml')
+    parser.add_argument('--model', type=Path, default=ROOT/'assets/tiangong3/tiangong3_29dof_dex_armature.xml')
     parser.add_argument('--pd-mode', choices=('auto', 'explicit', 'implicit'), default='explicit')
     parser.add_argument('--seconds', type=float, default=60.)
     parser.add_argument('--enter-at', type=float, default=10.)
@@ -33,7 +33,7 @@ def main():
     if (not all(np.isfinite(v) for v in (args.seconds, args.enter_at, args.band_seconds))
             or not 0 <= args.enter_at < args.band_seconds < args.seconds):
         parser.error('Require 0 <= enter-at < band-seconds < seconds')
-    sys.path.insert(0, str(ROOT.parent/'xmujoco/scripts'))
+    sys.path.insert(0, str(ROOT/'simulation'))
     from simulator_view_asyn import RobotSimulator
     sim = RobotSimulator(str(args.model), depth=False, headless=True, pd_mode=args.pd_mode)
     model, data = sim.model, sim.data

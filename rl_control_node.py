@@ -118,12 +118,6 @@ class XMIGCSControlNode(Node):
         self.dt = self.config.get('dt')
         self.sim = self.config.get('sim')
 
-        # 检查当前用户名，如果是ubuntu则抛出异常
-        import getpass
-        user_name = getpass.getuser().lower()
-        if self.sim and user_name == 'ubuntu':
-            raise RuntimeError("On ubuntu user, sim must be set to false")
-
     def _init_data_structures(self):
         """初始化数据结构"""
         # 机器人数据

@@ -27,7 +27,7 @@ from bodyctrl_msgs.msg import CmdMotorCtrl, MotorCtrl
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--simulator-root', type=Path, default=ROOT.parent/'xmujoco')
+    parser.add_argument('--simulator-root', type=Path, help='Optional external xmujoco checkout')
     parser.add_argument('--model', type=Path, help='XML override for model comparison experiments')
     parser.add_argument('--export-dir', type=Path, help='InstantTrack export override for this test only')
     parser.add_argument('--seconds', type=float, default=35.)
@@ -64,9 +64,12 @@ def main():
         parser.error('direct-play requires stand-at and cannot be combined with hold-only/zero-only')
     if args.zero_only and (args.hold_only or args.stand_at is not None):
         parser.error('zero-only cannot be combined with hold-only or stand-at')
-    sys.path.insert(0, str(args.simulator_root/'scripts'))
+    simulator_scripts = args.simulator_root/'scripts' if args.simulator_root else ROOT/'simulation'
+    sys.path.insert(0, str(simulator_scripts))
     from simulator_view_asyn import RobotSimulator
-    model_path = (args.model or args.simulator_root/'urdf/tiangong3_29dof.xml').resolve()
+    default_model = (args.simulator_root/'urdf/tiangong3_29dof.xml' if args.simulator_root
+                     else ROOT/'assets/tiangong3/tiangong3_29dof.xml')
+    model_path = (args.model or default_model).resolve()
     sim = RobotSimulator(str(model_path),
                          depth=False, headless=True, pd_mode=args.pd_mode)
     model, data = sim.model, sim.data
@@ -168,7 +171,7 @@ def main():
                   failure=reason, simulated_seconds=float(data.time), pd_mode=sim.pd_mode,
                   model_xml=str(model_path),
                   model_xml_sha256=hashlib.sha256(model_path.read_bytes()).hexdigest(),
-                  simulator_sha256=hashlib.sha256((args.simulator_root/'scripts/simulator_view_asyn.py').read_bytes()).hexdigest(),
+                  simulator_sha256=hashlib.sha256((simulator_scripts/'simulator_view_asyn.py').read_bytes()).hexdigest(),
                   physics_dt=float(model.opt.timestep), command_dt=rd.control_dt_,
                   armature_by_joint={name: float(model.dof_armature[model.joint(name).dofadr[0]]) for name in SERIAL_JOINT_NAMES},
                   checkpoint=None if not hasattr(state, 'runtime') else state.runtime.manifest['checkpoint'],

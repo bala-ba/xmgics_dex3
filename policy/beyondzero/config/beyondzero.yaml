@@ -1,4 +1,4 @@
-onnx_path: "policy_gui6_1.onnx"
+# This preparation state uses joint targets below; it does not load an ONNX model.
 
 motor_nums: 29
 interp_step: 0.01

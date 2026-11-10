@@ -9,10 +9,10 @@
 编辑本目录 `config/sonic_track.yaml`。路径相对 **xmigcs_dex3 根目录**解析，也可使用绝对路径。
 
 - `export_dir`：包含 encoder、decoder、manifest、robot_mapping、training_config 的完整导出目录。
-  当前指向用户指定的 `model_step_100000.pt` 导出 `ckpt_100000_8a3b22bf`。
-  不需要复制模型或安装 PyTorch；启动时核对导出文件 SHA-256、关节集合和模型接口。
+  当前使用 `model/export_100000_20261103_111558`，对应 `model_step_100000.pt`。
+  完整导出已随仓库提供，不需要训练项目或 PyTorch；启动时核对 SHA-256、关节集合和模型接口。
 - `motion_files`：可信的 Tiangong 29 关节 MotionLib `.pkl` 文件列表。
-  当前沿用原 xmigcs 的选择：`big_light_two_hands_front_medium_to_behind_medium_R_002__A521.pkl`。
+  当前使用仓库内 `motions/walk_forward_loop_001__A022.pkl`（20.58 秒）。
   换动作只需修改此列表并重启节点，不需重新导出网络。
   文件中的 `dof` 必须采用导出 mapping 的 `mjcf` 顺序，`root_rot` 为 `xyzw`。
 - `idle_motion_file`：IDLE 自动循环跟踪的动作，当前为 `idle_loop_001__A028.pkl`。
@@ -62,9 +62,8 @@ IDLE 的参考会持续随时间更新，不再使用固定 `q_default` 作为�
 未来 10 帧也包含循环首尾过渡和 RETURNING 后的动作，历史观测在这些边界不会重置。
 READY 仍表示准备与参考衔接计时完成，并非已经通过物理稳定性检测。
 
-当前 IDLE 播放站立循环，`p` 播放已选择的双手动作。
-要让 `p` 测试行走，请修改 `motion_files`，例如使用站立动作库中的
-`220714/walk_forward_start_001__A028.pkl`；`idle_motion_file` 保持站立循环。
+当前 IDLE 播放站立循环，`p` 播放已打包的向前行走动作。
+切换动作请修改 `motion_files`，`idle_motion_file` 独立控制待机循环。
 
 虚拟吊绳由 xmujoco 管理，SONICTRACK 不会自动切换吊绳。准备完成后在 MuJoCo 窗口
 用空格切换吊绳，确认移除支撑后再评估自主站立和跟踪。

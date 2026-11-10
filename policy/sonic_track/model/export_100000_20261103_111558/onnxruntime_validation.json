@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "cases": 227,
+  "token_max_abs_error": 0.0,
+  "action_max_abs_error": 2.86102294921875e-06,
+  "independent_decoder_max_abs_error": 2.86102294921875e-06,
+  "torch_version": "2.10.0+cu128",
+  "onnxruntime_version": "1.29.0",
+  "tolerance": {
+    "atol": 0.0001,
+    "rtol": 1e-05
+  }
+}

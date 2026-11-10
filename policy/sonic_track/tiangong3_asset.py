@@ -19,7 +19,7 @@ from scipy.spatial.transform import Rotation
 from .sonic_runtime import SERIAL_JOINT_NAMES
 
 ROOT = Path(__file__).resolve().parents[2]
-SOURCE = ROOT.parent / "TienKung-Lab-dev/legged_lab/assets/tiangong3"
+SOURCE = ROOT / "assets/tiangong3"
 OUTPUT = ROOT / "assets/tiangong3/tiangong3_29dof.xml"
 
 
@@ -165,7 +165,14 @@ def build(source=SOURCE, output=OUTPUT):
         # MuJoCo's principal-axis decomposition introduces small roundoff.
         np.testing.assert_allclose(actual, inertial_tensor(element), rtol=0, atol=1e-7)
     sha = lambda p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
-    revision = subprocess.check_output(["git", "-C", str(source), "rev-parse", "HEAD"], text=True).strip()
+    provenance = source / "source_provenance.json"
+    if provenance.is_file():
+        metadata = json.loads(provenance.read_text())
+        if metadata["source_urdf_sha256"] != sha(urdf_path):
+            raise ValueError("Packaged Tiangong3 URDF changed from its recorded source")
+        revision = metadata["source_revision"]
+    else:
+        revision = subprocess.check_output(["git", "-C", str(source), "rev-parse", "HEAD"], text=True).strip()
     report = dict(source_url="https://github.com/Open-X-Humanoid/TienKung-Lab/tree/dev/legged_lab/assets/tiangong3",
                   source_revision=revision, source_urdf=str(urdf_path), source_urdf_sha256=sha(urdf_path),
                   xml=str(output), xml_sha256=sha(output), mass_kg=float(model.body_mass.sum()),

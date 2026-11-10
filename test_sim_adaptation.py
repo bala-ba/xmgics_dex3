@@ -4,9 +4,11 @@ No ROS graph or hardware connection is created by these tests.
 """
 import contextlib
 import io
+import os
 from pathlib import Path
 from types import SimpleNamespace
 import unittest
+import tempfile
 from unittest.mock import Mock, patch
 
 import numpy as np
@@ -15,6 +17,7 @@ import yaml
 from common.joystick import ControlFlag
 from common.robot_data import RobotData
 from common.robot_interface import RobotInterfaceImpl
+from common.stdin_keyboard_control import KeyboardController
 from FSM.fsm_base import FSMStateName
 from FSM.robot_fsm import RobotFSMImpl
 from rl_control_node import XMIGCSControlNode
@@ -28,6 +31,25 @@ class SimulationAdaptationTests(unittest.TestCase):
         self.output = contextlib.redirect_stdout(io.StringIO())
         self.output.__enter__()
         self.addCleanup(self.output.__exit__, None, None, None)
+
+    def test_config_is_independent_of_cwd_and_username(self):
+        config = yaml.safe_load((ROOT/'config/dex_config.yaml').read_text())
+        cwd = os.getcwd()
+        with tempfile.TemporaryDirectory() as directory:
+            # A different config at the caller's cwd must not override the package.
+            path = Path(directory)/'config'
+            path.mkdir()
+            (path/'dex_config.yaml').write_text('keyboard:\n  max_forward_speed: 999\n')
+            try:
+                os.chdir(directory)
+                with patch('getpass.getuser', return_value='ubuntu'):
+                    node = SimpleNamespace()
+                    XMIGCSControlNode._load_config(node)
+                keyboard = KeyboardController()
+                self.assertEqual(node.sim, config['sim'])
+                self.assertEqual(keyboard.max_forward_speed, config['keyboard']['max_forward_speed'])
+            finally:
+                os.chdir(cwd)
 
     def test_sim_entry_overrides_hardware_config_before_thread_start(self):
         interface = SimpleNamespace(sim=False, camera_debug_vis=False, init=Mock())

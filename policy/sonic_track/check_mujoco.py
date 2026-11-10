@@ -116,7 +116,7 @@ def run_scenario(xml, scenario):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--xml", type=Path, default=ROOT.parent/"xmujoco/urdf/dex_evt_depth.xml")
+    parser.add_argument("--xml", type=Path, default=ROOT/"assets/tiangong3/tiangong3_29dof_dex_armature.xml")
     parser.add_argument("--output", type=Path, default=ROOT/".validation/sonic_mujoco.json")
     args = parser.parse_args()
     results = [run_scenario(args.xml, name) for name in ("idle", "play_return")]

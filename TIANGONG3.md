@@ -2,9 +2,9 @@
 
 ## 资产来源
 
-完整官方资产已下载到：
-
-`/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3`
+部署所需的官方 URDF、39 个网格及 torque XML 已放入仓库的 `assets/tiangong3/`，
+不再需要旁边的 `TienKung-Lab-dev` 项目。原始下载目录为
+`/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3`（仅来源记录）。
 
 来源：<https://github.com/Open-X-Humanoid/TienKung-Lab/tree/dev/legged_lab/assets/tiangong3>
 
@@ -29,11 +29,11 @@ FK 已与 MuJoCo 原生 URDF 导入器在零位及随机姿态下对照验证。
 
 继续使用 `policy/sonic_track/config/sonic_track.yaml` 指定的旧导出：
 
-`../GR00T-WholeBodyControl/outputs/sim2sim/tiangong2dex/ckpt_100000_8a3b22bf`
+`policy/sonic_track/model/export_100000_20261103_111558`
 
 encoder、decoder、manifest、PD、动作缩放、观测和历史定义均未修改，也没有重新训练。
-IDLE 为 `idle_loop_001__A028.pkl`；动作仍为当前选中的
-`big_light_two_hands_front_medium_to_behind_medium_R_002__A521.pkl`。
+IDLE 为 `idle_loop_001__A028.pkl`；当前播放动作是
+`walk_forward_loop_001__A022.pkl`。二者均位于 `policy/sonic_track/motions/`。
 原始动作参考未重新重定向到 Tiangong3；这是旧策略与旧参考的跨机器人迁移实验。
 
 默认运行过程：1 秒准备，自动跟踪 IDLE，6 秒时 PLAY，动作结束后 RETURNING → IDLE，
@@ -48,6 +48,9 @@ IDLE 为 `idle_loop_001__A028.pkl`；动作仍为当前选中的
 ## 运行
 
 离线生成视频和轨迹，不需要 DISPLAY，也不会连接 ROS 控制话题：
+
+默认直接加载内置 XML。需要重新构建时可指定 `--source assets/tiangong3`；
+通常的交互式仿真请使用 [SIMULATION.md](SIMULATION.md) 中的 DEX armature 配置。
 
 ```bash
 cd /home/lzp/projects/xmigcs_dex3

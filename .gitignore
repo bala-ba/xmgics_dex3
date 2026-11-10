@@ -17,3 +17,8 @@ docs/
 
 # Keep complete InstantTrack deployment bundles in the repository.
 !policy/instant_track/model/**/policy.onnx
+!policy/sonic_track/model/**/*.onnx
+!policy/walk_amp/model/policy_copy_283.onnx
+!policy/walk_lion/model/policy_102000.onnx
+!policy/walk_lion_dwaq/model/policy_dwaq_61950.onnx
+!policy/beyond_mimic/model/xiaotou.onnx

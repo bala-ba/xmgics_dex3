@@ -1,0 +1,157 @@
+{
+  "experiment": "Tiangong3 with DEX armature, explicit PD",
+  "xml": "tiangong3_29dof_dex_armature.xml",
+  "xml_sha256": "37ca190f9bed8f04c3c9137ee13f70b22609355ea088bccb05ffa4736148bfa9",
+  "source_xml": "/home/lzp/projects/xmujoco/urdf/tiangong3_29dof.xml",
+  "source_xml_sha256": "0640b75ae39a8e42015de6753b96f91cec7f00a34d6b67f159c9f20b5906a068",
+  "armature_source": "/home/lzp/projects/xmujoco/urdf/dex_evt_depth.xml",
+  "armature_source_sha256": "2ff4d50f0fd2e37988cef8f5d1f877d76a9222a9d97ddbd7540da4631165c812",
+  "changes": {
+    "hip_pitch_l_joint": {
+      "old": 0.0,
+      "new": 0.24
+    },
+    "hip_roll_l_joint": {
+      "old": 0.0,
+      "new": 0.24
+    },
+    "hip_yaw_l_joint": {
+      "old": 0.0,
+      "new": 0.18
+    },
+    "knee_pitch_l_joint": {
+      "old": 0.0,
+      "new": 0.37
+    },
+    "ankle_pitch_l_joint": {
+      "old": 0.0,
+      "new": 0.016
+    },
+    "ankle_roll_l_joint": {
+      "old": 0.0,
+      "new": 0.016
+    },
+    "hip_pitch_r_joint": {
+      "old": 0.0,
+      "new": 0.24
+    },
+    "hip_roll_r_joint": {
+      "old": 0.0,
+      "new": 0.24
+    },
+    "hip_yaw_r_joint": {
+      "old": 0.0,
+      "new": 0.18
+    },
+    "knee_pitch_r_joint": {
+      "old": 0.0,
+      "new": 0.37
+    },
+    "ankle_pitch_r_joint": {
+      "old": 0.0,
+      "new": 0.016
+    },
+    "ankle_roll_r_joint": {
+      "old": 0.0,
+      "new": 0.016
+    },
+    "waist_yaw_joint": {
+      "old": 0.0,
+      "new": 0.17
+    },
+    "waist_roll_joint": {
+      "old": 0.0,
+      "new": 0.17
+    },
+    "waist_pitch_joint": {
+      "old": 0.0,
+      "new": 0.17
+    },
+    "shoulder_pitch_l_joint": {
+      "old": 0.0,
+      "new": 0.1
+    },
+    "shoulder_roll_l_joint": {
+      "old": 0.0,
+      "new": 0.1
+    },
+    "shoulder_yaw_l_joint": {
+      "old": 0.0,
+      "new": 0.1
+    },
+    "elbow_pitch_l_joint": {
+      "old": 0.0,
+      "new": 0.1
+    },
+    "elbow_yaw_l_joint": {
+      "old": 0.0,
+      "new": 0.1
+    },
+    "wrist_pitch_l_joint": {
+      "old": 0.0,
+      "new": 0.01
+    },
+    "wrist_roll_l_joint": {
+      "old": 0.0,
+      "new": 0.01
+    },
+    "shoulder_pitch_r_joint": {
+      "old": 0.0,
+      "new": 0.1
+    },
+    "shoulder_roll_r_joint": {
+      "old": 0.0,
+      "new": 0.1
+    },
+    "shoulder_yaw_r_joint": {
+      "old": 0.0,
+      "new": 0.1
+    },
+    "elbow_pitch_r_joint": {
+      "old": 0.0,
+      "new": 0.1
+    },
+    "elbow_yaw_r_joint": {
+      "old": 0.0,
+      "new": 0.1
+    },
+    "wrist_pitch_r_joint": {
+      "old": 0.0,
+      "new": 0.01
+    },
+    "wrist_roll_r_joint": {
+      "old": 0.0,
+      "new": 0.01
+    }
+  },
+  "unchanged_compiled_fields": [
+    "body_mass",
+    "body_inertia",
+    "body_ipos",
+    "body_iquat",
+    "body_pos",
+    "body_quat",
+    "jnt_range",
+    "jnt_axis",
+    "dof_damping",
+    "dof_frictionloss",
+    "actuator_ctrlrange",
+    "actuator_gainprm",
+    "actuator_biasprm",
+    "actuator_gear",
+    "geom_pos",
+    "geom_quat",
+    "geom_size",
+    "geom_contype",
+    "geom_conaffinity",
+    "geom_friction",
+    "geom_solref",
+    "geom_solimp"
+  ],
+  "timestep": 0.001,
+  "mass_kg": 63.272147000000004,
+  "pd_mode": "explicit",
+  "pd_feedback": "current qpos/qvel",
+  "meshes": "tiangong3/meshes/ (shared with packaged Tiangong3)",
+  "packaged_from_xml_sha256": "d6eaa3f66abebfcc9afbc740485d0b1cdc546c69341bebed3b0ee79cb955912f"
+}

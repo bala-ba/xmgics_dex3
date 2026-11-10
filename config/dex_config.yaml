@@ -8,8 +8,8 @@ debug: false
 
 control_tool: keyboard # joystick, xbox, keyboard, websocket
 
-# These policies include their ONNX files. WALKAMP/WALKDEPTH/
-# WALKDEPTH100HZ require additional model files before enabling them.
+# These policies include their ONNX files. WALKAMP is packaged but disabled.
+# WALKDEPTH/WALKDEPTH100HZ still require their exact configured models.
 enabled_policy_states: [STAND, DEXAMP, DEXDELTA, MULTIAMP]
 sonic_track:
   enabled: true  # policy/sonic_track/config/sonic_track.yaml

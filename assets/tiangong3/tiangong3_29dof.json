@@ -3,8 +3,8 @@
   "source_revision": "ffea8bde32fcb632b5ef2a700e452f99e907ea40",
   "source_urdf": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/urdf/tiangong3.urdf",
   "source_urdf_sha256": "813b25065417cb0688c5bcce2d0260553dae86a9fffd06bf244767e07e340967",
-  "xml": "/home/lzp/projects/xmigcs_dex3/assets/tiangong3/tiangong3_29dof.xml",
-  "xml_sha256": "de99a8902e51c826b689ab40be62b5259a70dbc0d1df3a39d48e8d5071e8ea6c",
+  "xml": "tiangong3_29dof.xml",
+  "xml_sha256": "0eb76f830c21c1055bf57d0e34a88081d26378cdff8c10f03857dd31eb9c18ea",
   "mass_kg": 63.272147000000004,
   "dimensions": {
     "nq": 36,
@@ -58,160 +58,169 @@
   "motor_effort_source": "Tiangong3 URDF",
   "meshes": [
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/pelvis.STL",
+      "path": "tiangong3/meshes/pelvis.STL",
       "sha256": "28554feb36ce4bc0207d136836df9b930c7f7161d5c3844e59ca78ac005cf912"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/hip_pitch_l_link.STL",
+      "path": "tiangong3/meshes/hip_pitch_l_link.STL",
       "sha256": "078f77d8fd5559a7a151d8eb4334452fb8d27a2f435f6631f53cbaf3c1c92bf9"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/hip_roll_l_link.STL",
+      "path": "tiangong3/meshes/hip_roll_l_link.STL",
       "sha256": "5e9f9b3c388566cfc571a03c51136e286cd1d72aa9adaf03246a80e13e46bab3"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/hip_yaw_l_link.STL",
+      "path": "tiangong3/meshes/hip_yaw_l_link.STL",
       "sha256": "be6f5ebdc9f0fcf8bf7418538ac29e76bbdbb4b2c474d746f238ee35629c30bd"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/knee_pitch_l_link.STL",
+      "path": "tiangong3/meshes/knee_pitch_l_link.STL",
       "sha256": "a809681d597db637f8dc9797fa34f5f6e72990bd90718568592b49c604f21aea"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/ankle_pitch_l_link.STL",
+      "path": "tiangong3/meshes/ankle_pitch_l_link.STL",
       "sha256": "6457c21a1aa50af3b53f7c84fe0e01d0082aedfd52926307c160b3a81ff46613"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/ankle_roll_l_link.STL",
+      "path": "tiangong3/meshes/ankle_roll_l_link.STL",
       "sha256": "08578005d615e0dc4aac91a07d2292362e626e8bf05a1e075db7378de82e6faf"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/hip_pitch_r_link.STL",
+      "path": "tiangong3/meshes/hip_pitch_r_link.STL",
       "sha256": "be279d779ce27463a603525aff3e98b53ff1b5bbe9b6d4a279195b3f4461cbf2"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/hip_roll_r_link.STL",
+      "path": "tiangong3/meshes/hip_roll_r_link.STL",
       "sha256": "b862b1cbd3bbce6887f2ffb075162efb0e37875bdd26e0afa10f313eac5c9c58"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/hip_yaw_r_link.STL",
+      "path": "tiangong3/meshes/hip_yaw_r_link.STL",
       "sha256": "9101a2d3d7a6af46a116c0d82c1cdbbe32de019df313cb7a8cad5c2b8fae2cb4"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/knee_pitch_r_link.STL",
+      "path": "tiangong3/meshes/knee_pitch_r_link.STL",
       "sha256": "05a5988918be26859fadc0b0af2889c48865e4043ad53e20182efde4130a6c90"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/ankle_pitch_r_link.STL",
+      "path": "tiangong3/meshes/ankle_pitch_r_link.STL",
       "sha256": "24c3167ffc6c50df74a95f7359fd1e1041669f309859507933aad3ebc8dde426"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/ankle_roll_r_link.STL",
+      "path": "tiangong3/meshes/ankle_roll_r_link.STL",
       "sha256": "fb85f7db3cf1b84db2eb51e0547262ec297bf766da110dd5d8ec9b23213abc7b"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/waist_yaw_link.STL",
+      "path": "tiangong3/meshes/waist_yaw_link.STL",
       "sha256": "10e26e28bb1656425281b8ce1488d7b1d5b57553033c06d2389e6cd844e32e82"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/waist_roll_link.STL",
+      "path": "tiangong3/meshes/waist_roll_link.STL",
       "sha256": "7e0d40af7b9ec253334940ccae20630b4974e5c60cbd101f3263fa49f52a3717"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/waist_pitch_link.STL",
+      "path": "tiangong3/meshes/waist_pitch_link.STL",
       "sha256": "66d2ecf734f600356c489cd2d14abc3d711243d6fab1f67b15d3f4d69774ab0e"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/head_yaw_link.STL",
+      "path": "tiangong3/meshes/head_yaw_link.STL",
       "sha256": "fcee5826f97f97e7dabc83d28ad88c9fecf835365eefb3e8a1b01748a24d3eb2"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/head_pitch_link.STL",
+      "path": "tiangong3/meshes/head_pitch_link.STL",
       "sha256": "cdb99243ddd6f1b3b9243e754723b24a15e9786f28d875620bee1ccc798d0530"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/camera_head_link.STL",
+      "path": "tiangong3/meshes/camera_head_link.STL",
       "sha256": "48aaf5b88243419c222cf2259c86908cfca56a06b03af1ecad392bf7cc997ae5"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/radar_head_link.STL",
+      "path": "tiangong3/meshes/radar_head_link.STL",
       "sha256": "678055fe5f4ab992bcb34356568de5407ce995c1f91ca7de6850fec3146142b7"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/imu_head_link.STL",
+      "path": "tiangong3/meshes/imu_head_link.STL",
       "sha256": "9602fecb48c0a3c571c43e9ce3bf7bb398050ef495177ed0b82c8beb0321d041"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/shoulder_pitch_l_link.STL",
+      "path": "tiangong3/meshes/shoulder_pitch_l_link.STL",
       "sha256": "d24173505f641c71e1cc596662fde4d73e9e2c370b0211ae55d38dc7c129bc78"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/shoulder_roll_l_link.STL",
+      "path": "tiangong3/meshes/shoulder_roll_l_link.STL",
       "sha256": "8f2c740c2919015e3fcbabe285073eaaf4c5e965a203c8ccf8031fe463243c0d"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/shoulder_yaw_l_link.STL",
+      "path": "tiangong3/meshes/shoulder_yaw_l_link.STL",
       "sha256": "289144a2417bbcbdb0189626c0fe32e4c36ea0169395d80d6a595fd90c5bf5ba"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/elbow_pitch_l_link.STL",
+      "path": "tiangong3/meshes/elbow_pitch_l_link.STL",
       "sha256": "25432c1c0f2c3b55f9a3e97a0894347be84f6d9a5f8777702eb618401a781bd6"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/elbow_yaw_l_link.STL",
+      "path": "tiangong3/meshes/elbow_yaw_l_link.STL",
       "sha256": "a40651b002611c57ec1947cb27a41f98475adb3c903ef9c62e60ec9f8e863b45"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/wrist_pitch_l_link.STL",
+      "path": "tiangong3/meshes/wrist_pitch_l_link.STL",
       "sha256": "f4a55377332dfb709e21b9abd923263983085113aebf2ec5abcda5bfa920c955"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/wrist_roll_l_link.STL",
+      "path": "tiangong3/meshes/wrist_roll_l_link.STL",
       "sha256": "7885399e57dbeeac0a66fe4a638a946b893c25697cd1d9824bf2b33cc47c6dc2"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/left_tcp_link.STL",
+      "path": "tiangong3/meshes/left_tcp_link.STL",
       "sha256": "68179e7a4631856f2f2f6fd2dfc38dcdfefdd6f73f3e4b4c12a2f9d2bf667204"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/shoulder_pitch_r_link.STL",
+      "path": "tiangong3/meshes/shoulder_pitch_r_link.STL",
       "sha256": "259fff492aee276da0cf8e0394ea43a19e267b10293e35e867de7715d97cb072"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/shoulder_roll_r_link.STL",
+      "path": "tiangong3/meshes/shoulder_roll_r_link.STL",
       "sha256": "da4906b73912cb2091ddd2f13d4d7e2040065f3cb0e8b4098b8d0f98957f004e"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/shoulder_yaw_r_link.STL",
+      "path": "tiangong3/meshes/shoulder_yaw_r_link.STL",
       "sha256": "181594a9768a8356ed9d4fc3388ff6179724f953ad7497332c273f7d9c239bc6"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/elbow_pitch_r_link.STL",
+      "path": "tiangong3/meshes/elbow_pitch_r_link.STL",
       "sha256": "78fd299e6f7bf851ebfa67810975448a8c8d02820e0f008ac53f02479a618884"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/elbow_yaw_r_link.STL",
+      "path": "tiangong3/meshes/elbow_yaw_r_link.STL",
       "sha256": "3f9a26462b1777410ac04b70e27f46662d4e0334ef8b995dfe7504205a333b2c"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/wrist_pitch_r_link.STL",
+      "path": "tiangong3/meshes/wrist_pitch_r_link.STL",
       "sha256": "d3b9874560577653c5c4b65912e5a54da5f48f8f1d05d741f93cfcc145ac0464"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/wrist_roll_r_link.STL",
+      "path": "tiangong3/meshes/wrist_roll_r_link.STL",
       "sha256": "db1a2261296859dd24ba4866e6b32bf3b2f05cab32f0bb4b9bdbe2c86ca836d0"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/right_tcp_link.STL",
+      "path": "tiangong3/meshes/right_tcp_link.STL",
       "sha256": "fd06856b8e0c9b625e586662b4a847fda658733175467f5145d26094034b9f6d"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/camera_body_front_link.STL",
+      "path": "tiangong3/meshes/camera_body_front_link.STL",
       "sha256": "d60477b8b41a9525e0987e929545cf849a83827aa313f076f30b9d0e1775a376"
     },
     {
-      "path": "/home/lzp/projects/TienKung-Lab-dev/legged_lab/assets/tiangong3/meshes_new/imu_waist_link.STL",
+      "path": "tiangong3/meshes/imu_waist_link.STL",
       "sha256": "a9b08b911b7738adfbfc625c984ab50d7db346c3dd1427ebb76ca02a7445e54f"
     }
-  ]
+  ],
+  "source_xml": "/home/lzp/projects/xmigcs_dex3/assets/tiangong3/tiangong3_29dof.xml",
+  "source_xml_sha256": "de99a8902e51c826b689ab40be62b5259a70dbc0d1df3a39d48e8d5071e8ea6c",
+  "simulator_adaptations": [
+    "Copy referenced meshes locally; rewrite relative mesh paths.",
+    "Add a pelvis-aligned IMU site and six sensors.",
+    "Add position, velocity and actuator torque sensors for all 29 joints.",
+    "Preserve source masses, inertias, joint dynamics, contacts, limits and all 29 torque motors."
+  ],
+  "packaged_from_xml_sha256": "0640b75ae39a8e42015de6753b96f91cec7f00a34d6b67f159c9f20b5906a068"
 }

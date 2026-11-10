@@ -1,28 +1,18 @@
 # xmigcs_dex3 的 SONIC / MuJoCo 部署
 
-本机已建立独立 `.venv`：Python 3.10.20、NumPy 1.24.4、ONNX Runtime 1.19.2、
-MuJoCo 3.12.0、ROS 2 Humble，以及 `lib/22` 的 `sptlib_python`。
-原 `/home/lzp/projects/xmigcs` 的代码和环境不受此适配影响。
+环境安装、模型清单与传输完整性检查见 [DEPLOYMENT.md](DEPLOYMENT.md)。
+以下命令在克隆或解压后的项目根目录执行，不要求固定的 `/home/lzp/projects` 路径。
 
 ## 当前配置
 
-- 默认 `sim: true`、键盘控制、深度图关闭，主循环 100 Hz。
-- SONIC 50 Hz 推理，非推理周期保持上次目标；不对网络动作做线性插值。
-- 使用原 `model_step_100000.pt` 对应的完整导出 `ckpt_100000_8a3b22bf`，
-  encoder、decoder、manifest、mapping 和训练配置仍位于旁边的 GR00T 项目中。
-- IDLE 自动循环 `idle_loop_001__A028.pkl`。
-- `p` 默认播放原 xmigcs 当前选择的
-  `big_light_two_hands_front_medium_to_behind_medium_R_002__A521.pkl`。
-- `STAND` 已启用，数字键 `1` 从 ZERO 进入，100 Hz 持续运行站立策略。
-  操作和 Tiangong3/Dex 验证结果见 [STAND 说明](policy/stand/README.md)。
-- `DEXAMP`、`DEXDELTA`、`MULTIAMP` 保留原 Dex 3.0 模型和 PD 限幅实现。
-  `enabled_policy_states` 控制它们是否加载；可设为 `[]` 只运行 STOP/ZERO/SONIC。
-- `WALKAMP`、`WALKDEPTH`、`WALKDEPTH100HZ` 默认不加载，因为仓库缺少其配置引用的模型。
-  补齐模型和相应输入配置后才能加入 `enabled_policy_states`。
-
-本次使用现有 `xmujoco/urdf/dex_evt_depth.xml`，没有更换机器人动力学资产。
-Dex 3.0 的踝库保留用于实机；仿真路径不调用并联踝转换。
-因此，本地仿真验证不代表已验证 Dex 3.0 实机动力学或硬件部署。
+- 默认 `sim: true`、键盘控制、关闭深度图；控制命令 100 Hz，SONIC / InstantTrack 推理 50 Hz。
+- SONIC 完整导出位于仓库内 `policy/sonic_track/model/export_100000_20261103_111558/`。
+  IDLE 循环 `idle_loop_001__A028.pkl`，`p` 播放 `walk_forward_loop_001__A022.pkl`。
+- InstantTrack 默认是 `ckpt_438000` 的第一段直行，其他四套动作包也已打包。
+- STAND、DEXAMP、DEXDELTA、MULTIAMP 已启用并包含模型。
+- WALKAMP 模型已补齐但默认禁用；WALKDEPTH / WALKDEPTH100HZ 缺少其指定模型，保持禁用。
+- 内置 `simulation/simulator_view_asyn.py`，无需单独复制 xmujoco。
+  默认模型 `assets/tiangong3/tiangong3_29dof_dex_armature.xml`，启动脚本使用显式 PD。
 
 ## 启动
 
@@ -32,22 +22,26 @@ Dex 3.0 的踝库保留用于实机；仿真路径不调用并联踝转换。
 终端 A：在有 DISPLAY 的桌面环境启动 MuJoCo。
 
 ```bash
-cd /home/lzp/projects/xmujoco
-source /opt/ros/humble/setup.bash
 export ROS_DOMAIN_ID=71
-export ROS_LOCALHOST_ONLY=1
-../xmigcs_dex3/.venv/bin/python scripts/simulator_view_asyn.py
+./scripts/run_mujoco_sim.sh
+
+# 等价的完整启动方式：
+# source /opt/ros/humble/setup.bash
+# export ROS_DOMAIN_ID=71 ROS_LOCALHOST_ONLY=1 MUJOCO_GL=glfw
+# .venv/bin/python -u simulation/simulator_view_asyn.py \
+#   --robot tiangong3 \
+#   --model assets/tiangong3/tiangong3_29dof_dex_armature.xml \
+#   --pd-mode explicit
 ```
 
 终端 B：启动控制节点。
 
 ```bash
-cd /home/lzp/projects/xmigcs_dex3
 export ROS_DOMAIN_ID=71
 ./scripts/run_sonic_sim.sh
 ```
 
-脚本自动切换工作目录、加载 Humble 并使用本仓库的 `.venv`。
+脚本自动定位项目目录、加载 `${ROS_DISTRO:-humble}` 并使用本仓库的 `.venv`。
 不设置 `ROS_DOMAIN_ID` 时默认 71，`ROS_LOCALHOST_ONLY` 默认 1。
 
 在终端 B 输入按键，无需回车：
@@ -83,50 +77,22 @@ ros2 topic echo /leg/status --once
 修改模型或动作时编辑 `policy/sonic_track/config/sonic_track.yaml`，随后重启控制端。
 路径相对本仓库解析；不要修改导出 manifest 的内容来调参。
 
-## 重建 Python 3.10 环境
-
-本机已完成安装，无需重复执行。换机器时先安装 ROS Humble 及
-`lib/22/ros-humble-bodyctrl-msgs_0.0.0-0jammy_amd64.deb`，再执行：
-
-```bash
-cd /home/lzp/projects/xmigcs_dex3
-uv venv --python 3.10 .venv
-env -u HTTP_PROXY -u HTTPS_PROXY -u ALL_PROXY \
-    -u http_proxy -u https_proxy -u all_proxy \
-    uv pip install --python .venv/bin/python \
-    --index-url https://pypi.tuna.tsinghua.edu.cn/simple \
-    -r requirements_sim.txt \
-    ./lib/22/sptlib_python-0.1.0-cp310-cp310-linux_x86_64.whl
-printf '%s\n' /opt/ros/humble/lib/python3.10/site-packages \
-    /opt/ros/humble/local/lib/python3.10/dist-packages \
-    > .venv/lib/python3.10/site-packages/ros_paths.pth
-```
-
-取消代理只对该安装命令生效，用于绕开本机之前出现的 SSL EOF；TLS 验证保持开启。
-Python 3.10 使用 `requirements_sim.txt` 和 `lib/22`，不能安装 `lib/24` 的 Python 3.12 wheel。
-
-## 验证和边界
+## 验证
 
 ```bash
 source /opt/ros/humble/setup.bash
-.venv/bin/python -m unittest policy.sonic_track.test_sonic_track test_sim_adaptation -v
-.venv/bin/python -m policy.sonic_track.check_mujoco
+.venv/bin/python scripts/check_deployment.py --ros
+.venv/bin/python -m unittest policy.sonic_track.test_sonic_track \
+  policy.instant_track.test_instant_track policy.stand.test_stand \
+  policy.sonic_track.test_tiangong3_asset test_sim_adaptation -q
 ```
 
-2026-11-02 验证结果：
+完整性检查和单元测试不连接机器人。无窗口检查仿真接口可运行：
 
-- 19 项测试通过：真实 ONNX 验证向量、历史与关节顺序、29 关节 ROS 消息、
-  50 Hz 调度、循环和播放边界、仿真模式初始化、策略异常回退、无效踝结果拒绝。
-- 离线 MuJoCo：60 秒 IDLE，覆盖两次接缝；27.38 秒动作播放场景，覆盖手动返回、
-  完整双手动作和自动返回。均完成，状态有限，无提前退出。
-  两场景最低根高度分别约 0.905 m / 0.883 m。
-- 离线检查采用 1 ms 物理步长、100 Hz 缓存反馈 PD，吊绳仅在前 2 秒启用；
-  不包含 DDS 时延和 GUI 负载。结果写入 `.validation/sonic_mujoco.json`。
-- ROS 本地话题检查使用独立域 172 和合成静态反馈，覆盖 `z → t → p → i → c`，
-  腿／腰／臂消息均约 100 Hz，仿真过程未调用实机踝解算。
-  这是接口检查，不是 ROS + MuJoCo 的完整闭环验证。
+```bash
+./scripts/run_mujoco_sim.sh --headless --duration 3
+```
 
-主循环恢复为读取反馈 → 策略 → 发命令。策略抛出 RuntimeError 或 FloatingPointError
-时切换 STOP 保持；STOP 使用仓库已有 PD 参数，并非电机断电。
-踝库的失败、非有限或错误维度返回会在继续写入转换结果／发布命令前抛出异常；
-此检查不等同于完整的实机故障恢复机制。
+主循环依次读取反馈、运行策略和发送命令。策略抛出 RuntimeError 或
+FloatingPointError 时回退到 STOP 保持；STOP 并非电机断电。
+实机仍需机器人侧驱动、标定和对应的网络环境，本次迁移验证不等同于实机动作验证。

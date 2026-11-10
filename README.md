@@ -1,5 +1,9 @@
 # xMIGCS
 
+**换电脑部署请先看 [DEPLOYMENT.md](DEPLOYMENT.md)**：SONIC 双网络和动作、
+InstantTrack 的全部 5 套动作包、Tiangong3 XML/网格及 ROS 仿真接口均已放进本仓库。
+安装后运行 `.venv/bin/python scripts/check_deployment.py --ros` 检查完整性与加载结果。
+
 本地已按原 xmigcs 接入 SONIC 双网络、manifest 和 IDLE LOOP，并适配
 Ubuntu 22.04 / ROS 2 Humble / Python 3.10 的 MuJoCo 仿真。
 当前默认使用键盘、`sim: true`、关闭深度图；启动步骤见 [SIMULATION.md](SIMULATION.md)，

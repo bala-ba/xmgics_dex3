@@ -23,7 +23,7 @@ from common.robot_data import RobotData
 from policy.zero.fsm_zero import FSMStateZero
 from .fsm_sonic_track import FSMStateSONICTRACK, DEFAULT_CONFIG, ROOT
 from .sonic_runtime import SERIAL_JOINT_NAMES, rotation
-from .tiangong3_asset import build, OUTPUT, SOURCE
+from .tiangong3_asset import build, OUTPUT
 
 
 def ground_once(model, data):
@@ -97,7 +97,12 @@ class Video:
 def run(args):
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
-    model, asset = build(args.source, args.xml)
+    if args.source is not None:
+        model, asset = build(args.source, args.xml)
+    else:
+        model = mj.MjModel.from_xml_path(str(args.xml))
+        report_path = args.xml.with_suffix('.json')
+        asset = json.loads(report_path.read_text()) if report_path.is_file() else {'xml': str(args.xml)}
     rd = RobotData()
     rd.control_dt_ = .01
     zero = FSMStateZero(rd)
@@ -246,7 +251,8 @@ def run(args):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--source", type=Path, default=SOURCE)
+    parser.add_argument("--source", type=Path,
+                        help="Rebuild XML from this URDF asset directory; default loads packaged XML")
     parser.add_argument("--xml", type=Path, default=OUTPUT)
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--output", type=Path, default=ROOT/"outputs/tiangong3_sonic_step100000")

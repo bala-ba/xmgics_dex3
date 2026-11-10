@@ -248,7 +248,7 @@ class WebsocketController:
 
     def _load_config(self):
         try:
-            config_path = os.path.join(".", "config", "dex_config.yaml")
+            config_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "config", "dex_config.yaml")
             with open(config_path, "r") as f:
                 cfg = yaml.safe_load(f) or {}
             ws_cfg = cfg.get("websocket", {}) or {}

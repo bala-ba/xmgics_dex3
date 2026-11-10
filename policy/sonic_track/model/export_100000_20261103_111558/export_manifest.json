@@ -1,0 +1,611 @@
+{
+  "schema_version": 4,
+  "robot": "tiangong2dex_evt2_29dof",
+  "audit_date": "2026-10-30",
+  "audit_scope": "Reconstructed from checkpoint config, current original model modules, observation/configclass declaration order, and checked robot mapping. No historical training-code snapshot or original validation vectors were available. Strict full actor state load and independent PyTorch/ONNX numerical parity are required on every export. Re-audited Actor distribution diagnostics and rollout-cache cleanup against the exact v2 Actor source. Finite-input tokens, action means, std and seeded samples match exactly for 195 synthetic plus 32 Idle_Left reference-derived cases on checkpoint step 400; encoder/decoder and exported tensor layouts are unchanged. v4 re-audit: the sole pinned config change is the training motion-library directory, from the 220705 subset to its parent directory. All v3 source hashes, inference layouts, default pose and actuator parameters are retained. Every export still requires strict full actor state loading and PyTorch/ONNX numerical parity including the requested validation motion.",
+  "training_config_sha256": "7285d0317c3da336cf17d2bdc39a4dee5c375ef30d9876cd7ee1524208ec9cc0",
+  "source_hashes": {
+    "gear_sonic/trl/modules/actor_critic_modules.py": "b17c538c2b73a9ac1f48488d8828bbd3cdacaad8ed6a4e7437c5725144a07124",
+    "gear_sonic/trl/modules/universal_token_modules.py": "46b6a460032932034a23411b10674adee4ce253e51f66af89d58678c41caf415",
+    "gear_sonic/trl/modules/base_module.py": "462dfc4be982f5d6e2d08275df00fccbc49a81f882bdb60fc257be81da8593b6",
+    "gear_sonic/utils/inference_helpers.py": "4a02e49ffe76594ac68adebcf7749fc007fa827bf49a80953f5d6151e70e8d43",
+    "gear_sonic/envs/manager_env/mdp/observations.py": "08ebb1a7b919547fef657ea3f6644e7168ca7c5e2db6c18c9786ed6ecb8d45aa",
+    "gear_sonic/envs/manager_env/mdp/commands.py": "f56ecd6c9d590ae8a4be29b04b4df39698150776c619829540906bb07ef1f203",
+    "gear_sonic/envs/manager_env/robots/tiangong2dex.py": "a2049099cd7ea22a66ccb4ca8e37044b5276e26143e67bc521e7d0026a908773",
+    "gear_sonic/envs/manager_env/robot_motion_profile.py": "60fde4c229a625fb6143fbc93e92405a2b863bc378b192a0facc0d9dbb30f373",
+    "gear_sonic/envs/manager_env/modular_tracking_env_cfg.py": "24a4956bd471ec1d33147c4d1888f5b2ec5563e28c31437e8c448c131199c8f6",
+    "gear_sonic/utils/motion_lib/motion_lib_base.py": "985c796a76547ec36d74f03443008687cc60373269b4a84cf3cebf2c5195f5d6",
+    "gear_sonic/data/assets/robot_description/tiangong2dex_evt2_29dof/mapping.json": "e1376298b19d8c1dd8d7eb855b280500a722cffdc131e72984547d3cfc1077ce",
+    "gear_sonic/data/assets/robot_description/tiangong2dex_evt2_29dof/actuator_provenance.json": "7073c8c422faf6a8c66cd5733be288f79c038138ec048e6a1d76048e3cab8e5c",
+    "gear_sonic/envs/manager_env/robots/tiangong2dex_zeyu.py": "da51d4982c8d2784194e6f20aff1f4f72cc22fb659141d08cd6859a80be3edc2",
+    "gear_sonic/utils/motion_lib/torch_humanoid_batch.py": "fcc9669767ef52eb4d0e0d785ad7f2aa296690a6201396703da6b79962f7cdaa"
+  },
+  "encoder_modes": [
+    "g1",
+    "teleop",
+    "smpl"
+  ],
+  "encoder_input_layout": [
+    {
+      "name": "mode_id",
+      "shape": [
+        1
+      ],
+      "offset": 0,
+      "size": 1
+    },
+    {
+      "name": "encoder_index",
+      "shape": [
+        3
+      ],
+      "offset": 1,
+      "size": 3
+    },
+    {
+      "name": "command_multi_future_nonflat",
+      "shape": [
+        10,
+        58
+      ],
+      "offset": 4,
+      "size": 580
+    },
+    {
+      "name": "motion_anchor_ori_b",
+      "shape": [
+        6
+      ],
+      "offset": 584,
+      "size": 6
+    },
+    {
+      "name": "motion_anchor_ori_b_mf_nonflat",
+      "shape": [
+        10,
+        6
+      ],
+      "offset": 590,
+      "size": 60
+    },
+    {
+      "name": "command_multi_future_lower_body",
+      "shape": [
+        240
+      ],
+      "offset": 650,
+      "size": 240
+    },
+    {
+      "name": "vr_3point_local_target",
+      "shape": [
+        9
+      ],
+      "offset": 890,
+      "size": 9
+    },
+    {
+      "name": "vr_3point_local_orn_target",
+      "shape": [
+        12
+      ],
+      "offset": 899,
+      "size": 12
+    },
+    {
+      "name": "smpl_joints_multi_future_local_nonflat",
+      "shape": [
+        10,
+        72
+      ],
+      "offset": 911,
+      "size": 720
+    },
+    {
+      "name": "smpl_root_ori_b_multi_future",
+      "shape": [
+        10,
+        6
+      ],
+      "offset": 1631,
+      "size": 60
+    },
+    {
+      "name": "joint_pos_multi_future_wrist_for_smpl",
+      "shape": [
+        10,
+        6
+      ],
+      "offset": 1691,
+      "size": 60
+    }
+  ],
+  "policy_input_layout": [
+    {
+      "name": "base_ang_vel",
+      "shape": [
+        10,
+        3
+      ],
+      "offset": 0,
+      "size": 30
+    },
+    {
+      "name": "joint_pos",
+      "shape": [
+        10,
+        29
+      ],
+      "offset": 30,
+      "size": 290
+    },
+    {
+      "name": "joint_vel",
+      "shape": [
+        10,
+        29
+      ],
+      "offset": 320,
+      "size": 290
+    },
+    {
+      "name": "actions",
+      "shape": [
+        10,
+        29
+      ],
+      "offset": 610,
+      "size": 290
+    },
+    {
+      "name": "gravity_dir",
+      "shape": [
+        10,
+        3
+      ],
+      "offset": 900,
+      "size": 30
+    }
+  ],
+  "encoder_input_shape": [
+    1,
+    1751
+  ],
+  "encoder_output_shape": [
+    1,
+    64
+  ],
+  "decoder_input_shape": [
+    1,
+    994
+  ],
+  "decoder_output_shape": [
+    1,
+    29
+  ],
+  "policy_joint_order": [
+    "hip_pitch_l_joint",
+    "hip_pitch_r_joint",
+    "waist_yaw_joint",
+    "hip_roll_l_joint",
+    "hip_roll_r_joint",
+    "waist_roll_joint",
+    "hip_yaw_l_joint",
+    "hip_yaw_r_joint",
+    "waist_pitch_joint",
+    "knee_pitch_l_joint",
+    "knee_pitch_r_joint",
+    "shoulder_pitch_l_joint",
+    "shoulder_pitch_r_joint",
+    "ankle_pitch_l_joint",
+    "ankle_pitch_r_joint",
+    "shoulder_roll_l_joint",
+    "shoulder_roll_r_joint",
+    "ankle_roll_l_joint",
+    "ankle_roll_r_joint",
+    "shoulder_yaw_l_joint",
+    "shoulder_yaw_r_joint",
+    "elbow_pitch_l_joint",
+    "elbow_pitch_r_joint",
+    "elbow_yaw_l_joint",
+    "elbow_yaw_r_joint",
+    "wrist_pitch_l_joint",
+    "wrist_pitch_r_joint",
+    "wrist_roll_l_joint",
+    "wrist_roll_r_joint"
+  ],
+  "default_joint_angles_isaaclab": [
+    -0.25,
+    -0.25,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.5,
+    0.5,
+    0.0,
+    0.0,
+    -0.25,
+    -0.25,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -0.3,
+    -0.3,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "action_scale": 0.25,
+  "action_clip": 20.0,
+  "reference_sampling": {
+    "control_dt_seconds": 0.02,
+    "training_physics_dt_seconds": 0.005,
+    "training_decimation": 4,
+    "num_future_frames": 10,
+    "dt_future_ref_frames": 0.1,
+    "smpl_num_future_frames": 10,
+    "smpl_dt_future_ref_frames": 0.02,
+    "reference_joint_order": "mjcf",
+    "quaternion_order": "wxyz"
+  },
+  "layout_evidence": {
+    "encoder_order": "observations.py::TokenizerCfg filtered by inference_helpers.py::export_universal_token_encoders_as_onnx",
+    "mode_id": "Exporter prepends scalar index; the following encoder_index retains the training three-branch one-hot shape.",
+    "robot_future": "commands.py::command_multi_future concatenates flattened joint positions then velocities, reshaped [10,58] by observations.py.",
+    "teleop_lower_body": "commands.py::joint_pos_lower_body_multi_future selects 12 leg DOFs; q and v each cover 10x12.",
+    "teleop_rotation": "observations.py::vr_3point_local_orn_target returns three wxyz quaternions, hence 12 values.",
+    "smpl": "motion_lib_base.py uses 24 SMPL joints; [10,24,3] flattens to [10,72].",
+    "policy": "PolicyCfg declaration order; histories flatten term-major, oldest to newest.",
+    "joint_order": "mapping.json::joint_order.isaac_lab; robot_motion_profile.py binds the same mapping.",
+    "default_pose": "robots/tiangong2dex_zeyu.py::TIANGONG2DEX_ZEYU_CFG.init_state.joint_pos",
+    "action": "Raw action clip +/-20, zeyu default + 0.25*action; processed-target clip remains mapping soft_limit_rad (0.95). Articulation soft factor 0.90 is used by reset/reward, not this action clip."
+  },
+  "validation_input_provenance": {
+    "kind": "deterministic synthetic numerical parity cases",
+    "seed": 20261022,
+    "cases": 195,
+    "modes": 3,
+    "per_mode": "1 zero + 32 Gaussian std0.1 + 32 Gaussian std1.0; no original training-motion validation claimed",
+    "references": [
+      {
+        "path": "/home/lzp/projects/GR00T-WholeBodyControl/data/motion_lib_bones_seed/tiangong2dex_29dof_scheme_d_soma_newton_velocity_projected_robot_filtered/220714/idle_loop_001__A028.pkl",
+        "sha256": "8fe618e8befeac92e99168162b80c0235a9dc07f19804ff2e013dbbb07452ec1",
+        "cases": 32
+      }
+    ],
+    "reference_method": "Runtime Reference resampling; reset histories, zero previous actions and angular velocity; not recorded rollouts"
+  },
+  "actuator_parameters": {
+    "joint_order": [
+      "hip_pitch_l_joint",
+      "hip_pitch_r_joint",
+      "waist_yaw_joint",
+      "hip_roll_l_joint",
+      "hip_roll_r_joint",
+      "waist_roll_joint",
+      "hip_yaw_l_joint",
+      "hip_yaw_r_joint",
+      "waist_pitch_joint",
+      "knee_pitch_l_joint",
+      "knee_pitch_r_joint",
+      "shoulder_pitch_l_joint",
+      "shoulder_pitch_r_joint",
+      "ankle_pitch_l_joint",
+      "ankle_pitch_r_joint",
+      "shoulder_roll_l_joint",
+      "shoulder_roll_r_joint",
+      "ankle_roll_l_joint",
+      "ankle_roll_r_joint",
+      "shoulder_yaw_l_joint",
+      "shoulder_yaw_r_joint",
+      "elbow_pitch_l_joint",
+      "elbow_pitch_r_joint",
+      "elbow_yaw_l_joint",
+      "elbow_yaw_r_joint",
+      "wrist_pitch_l_joint",
+      "wrist_pitch_r_joint",
+      "wrist_roll_l_joint",
+      "wrist_roll_r_joint"
+    ],
+    "stiffness": [
+      300.0,
+      300.0,
+      400.0,
+      300.0,
+      300.0,
+      400.0,
+      150.0,
+      150.0,
+      400.0,
+      350.0,
+      350.0,
+      150.0,
+      150.0,
+      30.0,
+      30.0,
+      50.0,
+      50.0,
+      16.8,
+      16.8,
+      50.0,
+      50.0,
+      150.0,
+      150.0,
+      50.0,
+      50.0,
+      20.0,
+      20.0,
+      20.0,
+      20.0
+    ],
+    "damping": [
+      15.0,
+      15.0,
+      5.0,
+      15.0,
+      15.0,
+      15.0,
+      7.5,
+      7.5,
+      10.0,
+      15.0,
+      15.0,
+      5.0,
+      5.0,
+      3.75,
+      3.75,
+      2.5,
+      2.5,
+      2.1,
+      2.1,
+      2.5,
+      2.5,
+      5.0,
+      5.0,
+      5.0,
+      5.0,
+      2.0,
+      2.0,
+      2.0,
+      2.0
+    ],
+    "effort_limit_sim": [
+      235.0,
+      235.0,
+      91.0,
+      235.0,
+      235.0,
+      91.0,
+      150.0,
+      150.0,
+      91.0,
+      400.0,
+      400.0,
+      91.0,
+      91.0,
+      55.0,
+      55.0,
+      60.0,
+      60.0,
+      55.0,
+      55.0,
+      36.0,
+      36.0,
+      60.0,
+      60.0,
+      36.0,
+      36.0,
+      36.0,
+      36.0,
+      36.0,
+      36.0
+    ],
+    "velocity_limit_sim": [
+      16.755160819145562,
+      16.755160819145562,
+      9.42477796076938,
+      16.755160819145562,
+      16.755160819145562,
+      9.42477796076938,
+      13.82300767579509,
+      13.82300767579509,
+      9.42477796076938,
+      11.100294042683936,
+      11.100294042683936,
+      9.215338450530059,
+      9.215338450530059,
+      14.137166941154069,
+      14.137166941154069,
+      12.56637061435917,
+      12.56637061435917,
+      14.137166941154069,
+      14.137166941154069,
+      7.644542123735163,
+      7.644542123735163,
+      7.644542123735163,
+      7.644542123735163,
+      15.289084247470326,
+      15.289084247470326,
+      7.5398223686155035,
+      7.5398223686155035,
+      7.5398223686155035,
+      7.5398223686155035
+    ]
+  },
+  "changes_since_v1": [
+    {
+      "path": ".body_names",
+      "previous": [
+        "pelvis",
+        "hip_roll_l_link",
+        "knee_pitch_l_link",
+        "ankle_roll_l_link",
+        "hip_roll_r_link",
+        "knee_pitch_r_link",
+        "ankle_roll_r_link",
+        "waist_pitch_link",
+        "shoulder_roll_l_link",
+        "elbow_pitch_l_link",
+        "left_tcp_link",
+        "shoulder_roll_r_link",
+        "elbow_pitch_r_link",
+        "right_tcp_link"
+      ],
+      "current": [
+        "pelvis",
+        "hip_roll_l_link",
+        "knee_pitch_l_link",
+        "ankle_roll_l_link",
+        "hip_roll_r_link",
+        "knee_pitch_r_link",
+        "ankle_roll_r_link",
+        "waist_pitch_link",
+        "shoulder_roll_l_link",
+        "elbow_pitch_l_link",
+        "wrist_roll_l_link",
+        "shoulder_roll_r_link",
+        "elbow_pitch_r_link",
+        "wrist_roll_r_link"
+      ]
+    },
+    {
+      "path": ".eval_body_groups.vr_3points",
+      "previous": [
+        "waist_pitch_link",
+        "left_tcp_link",
+        "right_tcp_link"
+      ],
+      "current": [
+        "waist_pitch_link",
+        "wrist_roll_l_link",
+        "wrist_roll_r_link"
+      ]
+    },
+    {
+      "path": ".motion_lib_cfg.motion_file",
+      "previous": "data/motion_lib_bones_seed/tiangong2dex_29dof_scheme_d_grounded_robot_filtered",
+      "current": "data/motion_lib_bones_seed/tiangong2dex_29dof_scheme_d_soma_newton_velocity_projected_robot_filtered/220705"
+    },
+    {
+      "path": ".reward_point_body",
+      "previous": [
+        "waist_pitch_link",
+        "left_tcp_link",
+        "right_tcp_link"
+      ],
+      "current": [
+        "waist_pitch_link",
+        "wrist_roll_l_link",
+        "wrist_roll_r_link"
+      ]
+    },
+    {
+      "path": ".vr_3point_body",
+      "previous": [
+        "left_tcp_link",
+        "right_tcp_link",
+        "waist_pitch_link"
+      ],
+      "current": [
+        "wrist_roll_l_link",
+        "wrist_roll_r_link",
+        "waist_pitch_link"
+      ]
+    },
+    {
+      "path": ".vr_3point_body_offset",
+      "previous": [
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.00022262,
+          0.0,
+          0.43065
+        ]
+      ],
+      "current": [
+        [
+          0.0,
+          0.0,
+          -0.18
+        ],
+        [
+          0.0,
+          0.0,
+          -0.18
+        ],
+        [
+          0.00022262,
+          0.0,
+          0.43065
+        ]
+      ]
+    }
+  ],
+  "reaudit": {
+    "parent_schema": "tools/tiangong/sim2sim/export_schema_zeyu_v3.json",
+    "parent_schema_sha256": "e57f19cc582fc5775be7aac26c57b1260bf95fc28194e247c63fd892962f8ef1",
+    "training_config": "logs_rl/TRL_Tiangong2Dex_Track/manager/universal_token/all_modes/sonic_tiangong2dex_model_init_gpu0_env4096_randomized_20261028_101414_934w9tu8/config.yaml",
+    "baseline_training_config_sha256": "d7bc3fdb47daf0b07bb3adc1aa494da7b575727e2077932eb22efb2ecef4c572",
+    "changed_config_values": [
+      {
+        "key": "manager_env.commands.motion.motion_lib_cfg.motion_file",
+        "previous": "data/motion_lib_bones_seed/tiangong2dex_29dof_scheme_d_soma_newton_velocity_projected_robot_filtered/220705",
+        "current": "data/motion_lib_bones_seed/tiangong2dex_29dof_scheme_d_soma_newton_velocity_projected_robot_filtered/"
+      }
+    ],
+    "source_hashes_unchanged": true,
+    "review": "Changing the training dataset directory changes motion selection during training, not actor construction or the exported tensor contract. The inference runner uses its explicit --motion argument. Replacing only this path in an in-memory config copy passes every v3 bootstrap check; the saved training config is preserved unchanged. Numerical export validation is recorded separately in each export manifest."
+  },
+  "schema_audit_sha256": "31930904a9d865bf2b990ca8a7eee67003f97b16ad7b6dd340d90213587941c3",
+  "schema_source": "Source/config audit export_schema_zeyu_v4.json; no pre-existing ONNX template required",
+  "checkpoint": "/home/lzp/projects/GR00T-WholeBodyControl/logs_rl/TRL_Tiangong2Dex_Track/manager/universal_token/all_modes/sonic_tiangong2dex_model_init_gpu0_env4096_randomized_20261028_101414_934w9tu8/model_step_100000.pt",
+  "checkpoint_sha256": "8a3b22bf5754ff2c05fa5f6dce335947d4197f28d264564c39f193adbcf40212",
+  "training_step": 100000,
+  "export_method": "Original Actor strict state load and original encoder/decoder exporters (legacy ONNX)",
+  "validation": {
+    "passed": true,
+    "cases": 227,
+    "token_max_abs_error": 0.0,
+    "action_max_abs_error": 2.86102294921875e-06,
+    "independent_decoder_max_abs_error": 2.86102294921875e-06,
+    "torch_version": "2.10.0+cu128",
+    "onnxruntime_version": "1.29.0",
+    "tolerance": {
+      "atol": 0.0001,
+      "rtol": 1e-05
+    }
+  },
+  "versions": {
+    "torch": "2.10.0+cu128",
+    "onnx": "1.21.0",
+    "onnxruntime": "1.29.0"
+  },
+  "omitted_training_only": "No-state auxiliary loss constructors and trainer metadata classes; no network tensors omitted",
+  "export_script_sha256": "2ed3ef83c64a41121b89c5fd4661735891dda46778617ef521fa7530c242136e",
+  "hashes": {
+    "model_encoder.onnx": "624a275882dd36919543e5042c00a79ed24d294e55e359f9260398aa7cc96549",
+    "model_decoder.onnx": "7b1d3d10bb2481fcceeb0e84f9a0e29778c1c2509358f1a6b64ac07c2addd21f",
+    "validation_vectors.npz": "0a223f2be55fcc4aa23cf307ab5a646896d955968fc793d6523c27580722057d",
+    "training_config.yaml": "7285d0317c3da336cf17d2bdc39a4dee5c375ef30d9876cd7ee1524208ec9cc0",
+    "robot_mapping.json": "e1376298b19d8c1dd8d7eb855b280500a722cffdc131e72984547d3cfc1077ce"
+  }
+}

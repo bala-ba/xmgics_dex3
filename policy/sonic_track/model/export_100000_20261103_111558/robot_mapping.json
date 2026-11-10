@@ -1,0 +1,1181 @@
+{
+  "schema_version": 1,
+  "robot": "tiangong2dex_evt2_29dof",
+  "joint_order": {
+    "canonical": [
+      "hip_pitch_l_joint",
+      "hip_roll_l_joint",
+      "hip_yaw_l_joint",
+      "knee_pitch_l_joint",
+      "ankle_pitch_l_joint",
+      "ankle_roll_l_joint",
+      "hip_pitch_r_joint",
+      "hip_roll_r_joint",
+      "hip_yaw_r_joint",
+      "knee_pitch_r_joint",
+      "ankle_pitch_r_joint",
+      "ankle_roll_r_joint",
+      "waist_yaw_joint",
+      "waist_roll_joint",
+      "waist_pitch_joint",
+      "shoulder_pitch_l_joint",
+      "shoulder_roll_l_joint",
+      "shoulder_yaw_l_joint",
+      "elbow_pitch_l_joint",
+      "elbow_yaw_l_joint",
+      "wrist_pitch_l_joint",
+      "wrist_roll_l_joint",
+      "shoulder_pitch_r_joint",
+      "shoulder_roll_r_joint",
+      "shoulder_yaw_r_joint",
+      "elbow_pitch_r_joint",
+      "elbow_yaw_r_joint",
+      "wrist_pitch_r_joint",
+      "wrist_roll_r_joint"
+    ],
+    "urdf": [
+      "hip_pitch_l_joint",
+      "hip_roll_l_joint",
+      "hip_yaw_l_joint",
+      "knee_pitch_l_joint",
+      "ankle_pitch_l_joint",
+      "ankle_roll_l_joint",
+      "hip_pitch_r_joint",
+      "hip_roll_r_joint",
+      "hip_yaw_r_joint",
+      "knee_pitch_r_joint",
+      "ankle_pitch_r_joint",
+      "ankle_roll_r_joint",
+      "waist_yaw_joint",
+      "waist_roll_joint",
+      "waist_pitch_joint",
+      "shoulder_pitch_l_joint",
+      "shoulder_roll_l_joint",
+      "shoulder_yaw_l_joint",
+      "elbow_pitch_l_joint",
+      "elbow_yaw_l_joint",
+      "wrist_pitch_l_joint",
+      "wrist_roll_l_joint",
+      "shoulder_pitch_r_joint",
+      "shoulder_roll_r_joint",
+      "shoulder_yaw_r_joint",
+      "elbow_pitch_r_joint",
+      "elbow_yaw_r_joint",
+      "wrist_pitch_r_joint",
+      "wrist_roll_r_joint"
+    ],
+    "mjcf": [
+      "hip_pitch_l_joint",
+      "hip_roll_l_joint",
+      "hip_yaw_l_joint",
+      "knee_pitch_l_joint",
+      "ankle_pitch_l_joint",
+      "ankle_roll_l_joint",
+      "hip_pitch_r_joint",
+      "hip_roll_r_joint",
+      "hip_yaw_r_joint",
+      "knee_pitch_r_joint",
+      "ankle_pitch_r_joint",
+      "ankle_roll_r_joint",
+      "waist_yaw_joint",
+      "waist_roll_joint",
+      "waist_pitch_joint",
+      "shoulder_pitch_l_joint",
+      "shoulder_roll_l_joint",
+      "shoulder_yaw_l_joint",
+      "elbow_pitch_l_joint",
+      "elbow_yaw_l_joint",
+      "wrist_pitch_l_joint",
+      "wrist_roll_l_joint",
+      "shoulder_pitch_r_joint",
+      "shoulder_roll_r_joint",
+      "shoulder_yaw_r_joint",
+      "elbow_pitch_r_joint",
+      "elbow_yaw_r_joint",
+      "wrist_pitch_r_joint",
+      "wrist_roll_r_joint"
+    ],
+    "isaac_lab": [
+      "hip_pitch_l_joint",
+      "hip_pitch_r_joint",
+      "waist_yaw_joint",
+      "hip_roll_l_joint",
+      "hip_roll_r_joint",
+      "waist_roll_joint",
+      "hip_yaw_l_joint",
+      "hip_yaw_r_joint",
+      "waist_pitch_joint",
+      "knee_pitch_l_joint",
+      "knee_pitch_r_joint",
+      "shoulder_pitch_l_joint",
+      "shoulder_pitch_r_joint",
+      "ankle_pitch_l_joint",
+      "ankle_pitch_r_joint",
+      "shoulder_roll_l_joint",
+      "shoulder_roll_r_joint",
+      "ankle_roll_l_joint",
+      "ankle_roll_r_joint",
+      "shoulder_yaw_l_joint",
+      "shoulder_yaw_r_joint",
+      "elbow_pitch_l_joint",
+      "elbow_pitch_r_joint",
+      "elbow_yaw_l_joint",
+      "elbow_yaw_r_joint",
+      "wrist_pitch_l_joint",
+      "wrist_pitch_r_joint",
+      "wrist_roll_l_joint",
+      "wrist_roll_r_joint"
+    ],
+    "canonical_to_isaac": [
+      0,
+      3,
+      6,
+      9,
+      13,
+      17,
+      1,
+      4,
+      7,
+      10,
+      14,
+      18,
+      2,
+      5,
+      8,
+      11,
+      15,
+      19,
+      21,
+      23,
+      25,
+      27,
+      12,
+      16,
+      20,
+      22,
+      24,
+      26,
+      28
+    ],
+    "isaac_to_canonical": [
+      0,
+      6,
+      12,
+      1,
+      7,
+      13,
+      2,
+      8,
+      14,
+      3,
+      9,
+      15,
+      22,
+      4,
+      10,
+      16,
+      23,
+      5,
+      11,
+      17,
+      24,
+      18,
+      25,
+      19,
+      26,
+      20,
+      27,
+      21,
+      28
+    ],
+    "isaac_to_mjcf": [
+      0,
+      6,
+      12,
+      1,
+      7,
+      13,
+      2,
+      8,
+      14,
+      3,
+      9,
+      15,
+      22,
+      4,
+      10,
+      16,
+      23,
+      5,
+      11,
+      17,
+      24,
+      18,
+      25,
+      19,
+      26,
+      20,
+      27,
+      21,
+      28
+    ],
+    "mjcf_to_isaac": [
+      0,
+      3,
+      6,
+      9,
+      13,
+      17,
+      1,
+      4,
+      7,
+      10,
+      14,
+      18,
+      2,
+      5,
+      8,
+      11,
+      15,
+      19,
+      21,
+      23,
+      25,
+      27,
+      12,
+      16,
+      20,
+      22,
+      24,
+      26,
+      28
+    ]
+  },
+  "body_order": {
+    "urdf": [
+      "pelvis",
+      "hip_pitch_l_link",
+      "hip_roll_l_link",
+      "hip_yaw_l_link",
+      "knee_pitch_l_link",
+      "ankle_pitch_l_link",
+      "ankle_roll_l_link",
+      "hip_pitch_r_link",
+      "hip_roll_r_link",
+      "hip_yaw_r_link",
+      "knee_pitch_r_link",
+      "ankle_pitch_r_link",
+      "ankle_roll_r_link",
+      "waist_yaw_link",
+      "waist_roll_link",
+      "waist_pitch_link",
+      "head_yaw_link",
+      "camera_head_link",
+      "camera_body_front_link",
+      "radar_head_link",
+      "RGB_head_front_link",
+      "RGB_head_front_left_link",
+      "RGB_head_back_left_link",
+      "RGB_head_back_link",
+      "RGB_head_back_right_link",
+      "RGB_head_front_right_link",
+      "shoulder_pitch_l_link",
+      "shoulder_roll_l_link",
+      "shoulder_yaw_l_link",
+      "elbow_pitch_l_link",
+      "elbow_yaw_l_link",
+      "wrist_pitch_l_link",
+      "wrist_roll_l_link",
+      "left_tcp_link",
+      "shoulder_pitch_r_link",
+      "shoulder_roll_r_link",
+      "shoulder_yaw_r_link",
+      "elbow_pitch_r_link",
+      "elbow_yaw_r_link",
+      "wrist_pitch_r_link",
+      "wrist_roll_r_link",
+      "right_tcp_link",
+      "imu_link"
+    ],
+    "isaac_lab": [
+      "pelvis",
+      "hip_pitch_l_link",
+      "hip_pitch_r_link",
+      "imu_link",
+      "waist_yaw_link",
+      "hip_roll_l_link",
+      "hip_roll_r_link",
+      "waist_roll_link",
+      "hip_yaw_l_link",
+      "hip_yaw_r_link",
+      "waist_pitch_link",
+      "knee_pitch_l_link",
+      "knee_pitch_r_link",
+      "RGB_head_back_link",
+      "RGB_head_back_left_link",
+      "RGB_head_back_right_link",
+      "RGB_head_front_link",
+      "RGB_head_front_left_link",
+      "RGB_head_front_right_link",
+      "camera_body_front_link",
+      "head_yaw_link",
+      "radar_head_link",
+      "shoulder_pitch_l_link",
+      "shoulder_pitch_r_link",
+      "ankle_pitch_l_link",
+      "ankle_pitch_r_link",
+      "camera_head_link",
+      "shoulder_roll_l_link",
+      "shoulder_roll_r_link",
+      "ankle_roll_l_link",
+      "ankle_roll_r_link",
+      "shoulder_yaw_l_link",
+      "shoulder_yaw_r_link",
+      "elbow_pitch_l_link",
+      "elbow_pitch_r_link",
+      "elbow_yaw_l_link",
+      "elbow_yaw_r_link",
+      "wrist_pitch_l_link",
+      "wrist_pitch_r_link",
+      "wrist_roll_l_link",
+      "wrist_roll_r_link",
+      "left_tcp_link",
+      "right_tcp_link"
+    ],
+    "mjcf": [
+      "pelvis",
+      "hip_pitch_l_link",
+      "hip_roll_l_link",
+      "hip_yaw_l_link",
+      "knee_pitch_l_link",
+      "ankle_pitch_l_link",
+      "ankle_roll_l_link",
+      "hip_pitch_r_link",
+      "hip_roll_r_link",
+      "hip_yaw_r_link",
+      "knee_pitch_r_link",
+      "ankle_pitch_r_link",
+      "ankle_roll_r_link",
+      "waist_yaw_link",
+      "waist_roll_link",
+      "waist_pitch_link",
+      "shoulder_pitch_l_link",
+      "shoulder_roll_l_link",
+      "shoulder_yaw_l_link",
+      "elbow_pitch_l_link",
+      "elbow_yaw_l_link",
+      "wrist_pitch_l_link",
+      "wrist_roll_l_link",
+      "left_tcp_link",
+      "shoulder_pitch_r_link",
+      "shoulder_roll_r_link",
+      "shoulder_yaw_r_link",
+      "elbow_pitch_r_link",
+      "elbow_yaw_r_link",
+      "wrist_pitch_r_link",
+      "wrist_roll_r_link",
+      "right_tcp_link"
+    ],
+    "urdf_to_isaac": [
+      0,
+      1,
+      5,
+      8,
+      11,
+      24,
+      29,
+      2,
+      6,
+      9,
+      12,
+      25,
+      30,
+      4,
+      7,
+      10,
+      20,
+      26,
+      19,
+      21,
+      16,
+      17,
+      14,
+      13,
+      15,
+      18,
+      22,
+      27,
+      31,
+      33,
+      35,
+      37,
+      39,
+      41,
+      23,
+      28,
+      32,
+      34,
+      36,
+      38,
+      40,
+      42,
+      3
+    ],
+    "isaac_to_urdf": [
+      0,
+      1,
+      7,
+      42,
+      13,
+      2,
+      8,
+      14,
+      3,
+      9,
+      15,
+      4,
+      10,
+      23,
+      22,
+      24,
+      20,
+      21,
+      25,
+      18,
+      16,
+      19,
+      26,
+      34,
+      5,
+      11,
+      17,
+      27,
+      35,
+      6,
+      12,
+      28,
+      36,
+      29,
+      37,
+      30,
+      38,
+      31,
+      39,
+      32,
+      40,
+      33,
+      41
+    ],
+    "isaac_to_mjcf": [
+      0,
+      1,
+      7,
+      null,
+      13,
+      2,
+      8,
+      14,
+      3,
+      9,
+      15,
+      4,
+      10,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      16,
+      24,
+      5,
+      11,
+      null,
+      17,
+      25,
+      6,
+      12,
+      18,
+      26,
+      19,
+      27,
+      20,
+      28,
+      21,
+      29,
+      22,
+      30,
+      23,
+      31
+    ],
+    "mjcf_to_isaac": [
+      0,
+      1,
+      5,
+      8,
+      11,
+      24,
+      29,
+      2,
+      6,
+      9,
+      12,
+      25,
+      30,
+      4,
+      7,
+      10,
+      22,
+      27,
+      31,
+      33,
+      35,
+      37,
+      39,
+      41,
+      23,
+      28,
+      32,
+      34,
+      36,
+      38,
+      40,
+      42
+    ]
+  },
+  "tracking_bodies": {
+    "names": [
+      "pelvis",
+      "hip_roll_l_link",
+      "knee_pitch_l_link",
+      "ankle_roll_l_link",
+      "hip_roll_r_link",
+      "knee_pitch_r_link",
+      "ankle_roll_r_link",
+      "waist_pitch_link",
+      "shoulder_roll_l_link",
+      "elbow_pitch_l_link",
+      "left_tcp_link",
+      "shoulder_roll_r_link",
+      "elbow_pitch_r_link",
+      "right_tcp_link"
+    ],
+    "isaac_lab_indices": [
+      0,
+      5,
+      11,
+      29,
+      6,
+      12,
+      30,
+      10,
+      27,
+      33,
+      41,
+      28,
+      34,
+      42
+    ],
+    "mjcf_indices": [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      15,
+      17,
+      19,
+      23,
+      25,
+      27,
+      31
+    ]
+  },
+  "joints": [
+    {
+      "index": 0,
+      "name": "hip_pitch_l_joint",
+      "child_body": "hip_pitch_l_link",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -3.141592653589793,
+        2.8797932657906435
+      ],
+      "soft_limit_rad": [
+        -2.9845130209103035,
+        2.7358036025011114
+      ],
+      "velocity_rad_s": 16.755160819145562,
+      "effort_nm": 235.0
+    },
+    {
+      "index": 1,
+      "name": "hip_roll_l_joint",
+      "child_body": "hip_roll_l_link",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -0.41887902047863906,
+        2.6179938779914944
+      ],
+      "soft_limit_rad": [
+        -0.3979350694547071,
+        2.4870941840919194
+      ],
+      "velocity_rad_s": 16.755160819145562,
+      "effort_nm": 235.0
+    },
+    {
+      "index": 2,
+      "name": "hip_yaw_l_joint",
+      "child_body": "hip_yaw_l_link",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "hard_limit_rad": [
+        -1.5707963267948966,
+        4.363323129985823
+      ],
+      "soft_limit_rad": [
+        -1.4922565104551517,
+        4.145156973486532
+      ],
+      "velocity_rad_s": 13.82300767579509,
+      "effort_nm": 150.0
+    },
+    {
+      "index": 3,
+      "name": "knee_pitch_l_joint",
+      "child_body": "knee_pitch_l_link",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -0.08726646259971647,
+        2.5307274153917776
+      ],
+      "soft_limit_rad": [
+        -0.08290313946973064,
+        2.4041910446221886
+      ],
+      "velocity_rad_s": 11.100294042683936,
+      "effort_nm": 400.0
+    },
+    {
+      "index": 4,
+      "name": "ankle_pitch_l_joint",
+      "child_body": "ankle_pitch_l_link",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -1.2217304763960306,
+        0.5235987755982988
+      ],
+      "soft_limit_rad": [
+        -1.160643952576229,
+        0.49741883681838384
+      ],
+      "velocity_rad_s": 14.137166941154069,
+      "effort_nm": 55.0
+    },
+    {
+      "index": 5,
+      "name": "ankle_roll_l_joint",
+      "child_body": "ankle_roll_l_link",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -0.5235987755982988,
+        0.5235987755982988
+      ],
+      "soft_limit_rad": [
+        -0.49741883681838384,
+        0.49741883681838384
+      ],
+      "velocity_rad_s": 14.137166941154069,
+      "effort_nm": 55.0
+    },
+    {
+      "index": 6,
+      "name": "hip_pitch_r_joint",
+      "child_body": "hip_pitch_r_link",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -3.141592653589793,
+        2.8797932657906435
+      ],
+      "soft_limit_rad": [
+        -2.9845130209103035,
+        2.7358036025011114
+      ],
+      "velocity_rad_s": 16.755160819145562,
+      "effort_nm": 235.0
+    },
+    {
+      "index": 7,
+      "name": "hip_roll_r_joint",
+      "child_body": "hip_roll_r_link",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -2.6179938779914944,
+        0.41887902047863906
+      ],
+      "soft_limit_rad": [
+        -2.4870941840919194,
+        0.3979350694547071
+      ],
+      "velocity_rad_s": 16.755160819145562,
+      "effort_nm": 235.0
+    },
+    {
+      "index": 8,
+      "name": "hip_yaw_r_joint",
+      "child_body": "hip_yaw_r_link",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "hard_limit_rad": [
+        -4.363323129985823,
+        1.5707963267948966
+      ],
+      "soft_limit_rad": [
+        -4.145156973486532,
+        1.4922565104551517
+      ],
+      "velocity_rad_s": 13.82300767579509,
+      "effort_nm": 150.0
+    },
+    {
+      "index": 9,
+      "name": "knee_pitch_r_joint",
+      "child_body": "knee_pitch_r_link",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -0.08726646259971647,
+        2.5307274153917776
+      ],
+      "soft_limit_rad": [
+        -0.08290313946973064,
+        2.4041910446221886
+      ],
+      "velocity_rad_s": 11.100294042683936,
+      "effort_nm": 400.0
+    },
+    {
+      "index": 10,
+      "name": "ankle_pitch_r_joint",
+      "child_body": "ankle_pitch_r_link",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -1.2217304763960306,
+        0.5235987755982988
+      ],
+      "soft_limit_rad": [
+        -1.160643952576229,
+        0.49741883681838384
+      ],
+      "velocity_rad_s": 14.137166941154069,
+      "effort_nm": 55.0
+    },
+    {
+      "index": 11,
+      "name": "ankle_roll_r_joint",
+      "child_body": "ankle_roll_r_link",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -0.5235987755982988,
+        0.5235987755982988
+      ],
+      "soft_limit_rad": [
+        -0.49741883681838384,
+        0.49741883681838384
+      ],
+      "velocity_rad_s": 14.137166941154069,
+      "effort_nm": 55.0
+    },
+    {
+      "index": 12,
+      "name": "waist_yaw_joint",
+      "child_body": "waist_yaw_link",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "hard_limit_rad": [
+        -3.2288591161895095,
+        2.792526803190927
+      ],
+      "soft_limit_rad": [
+        -3.067416160380034,
+        2.6529004630313806
+      ],
+      "velocity_rad_s": 9.42477796076938,
+      "effort_nm": 91.0
+    },
+    {
+      "index": 13,
+      "name": "waist_roll_joint",
+      "child_body": "waist_roll_link",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -0.5235987755982988,
+        0.5235987755982988
+      ],
+      "soft_limit_rad": [
+        -0.49741883681838384,
+        0.49741883681838384
+      ],
+      "velocity_rad_s": 9.42477796076938,
+      "effort_nm": 91.0
+    },
+    {
+      "index": 14,
+      "name": "waist_pitch_joint",
+      "child_body": "waist_pitch_link",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -0.5235987755982988,
+        0.9599310885968813
+      ],
+      "soft_limit_rad": [
+        -0.49741883681838384,
+        0.9119345341670372
+      ],
+      "velocity_rad_s": 9.42477796076938,
+      "effort_nm": 91.0
+    },
+    {
+      "index": 15,
+      "name": "shoulder_pitch_l_joint",
+      "child_body": "shoulder_pitch_l_link",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -2.9670597283903604,
+        2.9670597283903604
+      ],
+      "soft_limit_rad": [
+        -2.8187067419708423,
+        2.8187067419708423
+      ],
+      "velocity_rad_s": 9.215338450530059,
+      "effort_nm": 91.0
+    },
+    {
+      "index": 16,
+      "name": "shoulder_roll_l_joint",
+      "child_body": "shoulder_roll_l_link",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -0.2617993877991494,
+        3.4033920413889422
+      ],
+      "soft_limit_rad": [
+        -0.24870941840919192,
+        3.233222439319495
+      ],
+      "velocity_rad_s": 12.56637061435917,
+      "effort_nm": 60.0
+    },
+    {
+      "index": 17,
+      "name": "shoulder_yaw_l_joint",
+      "child_body": "shoulder_yaw_l_link",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "hard_limit_rad": [
+        -2.9670597283903604,
+        2.9670597283903604
+      ],
+      "soft_limit_rad": [
+        -2.8187067419708423,
+        2.8187067419708423
+      ],
+      "velocity_rad_s": 7.644542123735163,
+      "effort_nm": 36.0
+    },
+    {
+      "index": 18,
+      "name": "elbow_pitch_l_joint",
+      "child_body": "elbow_pitch_l_link",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -2.6179938779914944,
+        0.2617993877991494
+      ],
+      "soft_limit_rad": [
+        -2.4870941840919194,
+        0.24870941840919192
+      ],
+      "velocity_rad_s": 7.644542123735163,
+      "effort_nm": 60.0
+    },
+    {
+      "index": 19,
+      "name": "elbow_yaw_l_joint",
+      "child_body": "elbow_yaw_l_link",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "hard_limit_rad": [
+        -2.9670597283903604,
+        2.9670597283903604
+      ],
+      "soft_limit_rad": [
+        -2.8187067419708423,
+        2.8187067419708423
+      ],
+      "velocity_rad_s": 15.289084247470326,
+      "effort_nm": 36.0
+    },
+    {
+      "index": 20,
+      "name": "wrist_pitch_l_joint",
+      "child_body": "wrist_pitch_l_link",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -1.3962634015954636,
+        1.3962634015954636
+      ],
+      "soft_limit_rad": [
+        -1.3264502315156903,
+        1.3264502315156903
+      ],
+      "velocity_rad_s": 7.5398223686155035,
+      "effort_nm": 36.0
+    },
+    {
+      "index": 21,
+      "name": "wrist_roll_l_joint",
+      "child_body": "wrist_roll_l_link",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -1.3962634015954636,
+        1.3962634015954636
+      ],
+      "soft_limit_rad": [
+        -1.3264502315156903,
+        1.3264502315156903
+      ],
+      "velocity_rad_s": 7.5398223686155035,
+      "effort_nm": 36.0
+    },
+    {
+      "index": 22,
+      "name": "shoulder_pitch_r_joint",
+      "child_body": "shoulder_pitch_r_link",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -2.9670597283903604,
+        2.9670597283903604
+      ],
+      "soft_limit_rad": [
+        -2.8187067419708423,
+        2.8187067419708423
+      ],
+      "velocity_rad_s": 9.215338450530059,
+      "effort_nm": 91.0
+    },
+    {
+      "index": 23,
+      "name": "shoulder_roll_r_joint",
+      "child_body": "shoulder_roll_r_link",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -3.4033920413889422,
+        0.2617993877991494
+      ],
+      "soft_limit_rad": [
+        -3.233222439319495,
+        0.24870941840919192
+      ],
+      "velocity_rad_s": 12.56637061435917,
+      "effort_nm": 60.0
+    },
+    {
+      "index": 24,
+      "name": "shoulder_yaw_r_joint",
+      "child_body": "shoulder_yaw_r_link",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "hard_limit_rad": [
+        -2.9670597283903604,
+        2.9670597283903604
+      ],
+      "soft_limit_rad": [
+        -2.8187067419708423,
+        2.8187067419708423
+      ],
+      "velocity_rad_s": 7.644542123735163,
+      "effort_nm": 36.0
+    },
+    {
+      "index": 25,
+      "name": "elbow_pitch_r_joint",
+      "child_body": "elbow_pitch_r_link",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -2.6179938779914944,
+        0.2617993877991494
+      ],
+      "soft_limit_rad": [
+        -2.4870941840919194,
+        0.24870941840919192
+      ],
+      "velocity_rad_s": 7.644542123735163,
+      "effort_nm": 60.0
+    },
+    {
+      "index": 26,
+      "name": "elbow_yaw_r_joint",
+      "child_body": "elbow_yaw_r_link",
+      "axis": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "hard_limit_rad": [
+        -2.9670597283903604,
+        2.9670597283903604
+      ],
+      "soft_limit_rad": [
+        -2.8187067419708423,
+        2.8187067419708423
+      ],
+      "velocity_rad_s": 15.289084247470326,
+      "effort_nm": 36.0
+    },
+    {
+      "index": 27,
+      "name": "wrist_pitch_r_joint",
+      "child_body": "wrist_pitch_r_link",
+      "axis": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -1.3962634015954636,
+        1.3962634015954636
+      ],
+      "soft_limit_rad": [
+        -1.3264502315156903,
+        1.3264502315156903
+      ],
+      "velocity_rad_s": 7.5398223686155035,
+      "effort_nm": 36.0
+    },
+    {
+      "index": 28,
+      "name": "wrist_roll_r_joint",
+      "child_body": "wrist_roll_r_link",
+      "axis": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "hard_limit_rad": [
+        -1.3962634015954636,
+        1.3962634015954636
+      ],
+      "soft_limit_rad": [
+        -1.3264502315156903,
+        1.3264502315156903
+      ],
+      "velocity_rad_s": 7.5398223686155035,
+      "effort_nm": 36.0
+    }
+  ]
+}
