@@ -2,7 +2,7 @@
 
 已接入 `/home/lzp/projects/instantTrack/logs/tiangong_single_20261109_004112/ckpt_438000.pt`，
 使用 checkpoint 的 `pi` 权重（训练保存的 EMA 策略），当前默认参考动作是
-`squat_001__A362`，按训练流程重采样为 50 Hz，共 494 帧、9.86 秒。
+`walk1_subject1_first_forward`，采样率为 50 Hz，共 601 帧、12 秒。
 
 完整部署包已随仓库提交，包含 `policy.onnx`、参考动作 NPZ、manifest 和验证数据。
 修改 `config/instant_track.yaml` 的 `export_dir` 后重启控制程序即可切换；以下目录均位于
@@ -10,9 +10,10 @@
 
 | 目录 | 参考动作 | 帧数 | 时长 |
 | --- | --- | ---: | ---: |
-| `ckpt_438000_squat_001__A362` | 下蹲（当前默认） | 494 | 9.86 秒 |
-| `ckpt_438000` | 第一段直行，保留起步和停步 | 601 | 12 秒 |
+| `ckpt_438000_squat_001__A362` | 下蹲 | 494 | 9.86 秒 |
+| `ckpt_438000` | 第一段直行，保留起步和停步（当前默认） | 601 | 12 秒 |
 | `ckpt_438000_jump_and_land_light_001__A001_M` | 轻跳落地 | 485 | 9.68 秒 |
+| `ckpt_438000_salute_002__A067` | 敬礼 | 122 | 2.42 秒 |
 | `ckpt_438000_full_backup_before_first_forward` | 完整 `walk1_subject1` 原始导出备份 | 13,066 | 261.3 秒 |
 
 manifest 中的训练 checkpoint、原始动作和裁剪脚本路径用于记录来源；

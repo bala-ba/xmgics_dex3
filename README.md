@@ -9,8 +9,8 @@ Ubuntu 22.04 / ROS 2 Humble / Python 3.10 的 MuJoCo 仿真。
 已下载 Tiangong3 官方资产并提供独立的旧 SONIC 策略运行入口，见
 [Tiangong3 动作生成与结果](TIANGONG3.md)。
 
-已接入 InstantTrack `ckpt_438000.pt`，默认加载 `squat_001__A362` 下蹲动作。
-仓库包含下蹲、首段直行、轻跳动作包及完整步行动作备份；
+已接入 InstantTrack `ckpt_438000.pt`，默认加载裁剪后的首段直行动作。
+仓库包含下蹲、首段直行、轻跳、敬礼动作包及完整步行动作备份；
 通过 `policy/instant_track/config/instant_track.yaml` 的 `export_dir` 选择动作包。独立状态
 `INSTANTTRACK`：从 ZERO/STAND 按 `b`，准备完成后自动播放；`p` 播放/续播，
 `i` 暂停参考但继续推理，`c` STOP；原地站立使用 `z → 1` 的 STAND。
