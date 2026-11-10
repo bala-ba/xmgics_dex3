@@ -12,7 +12,9 @@
   当前使用 `model/export_100000_20261103_111558`，对应 `model_step_100000.pt`。
   完整导出已随仓库提供，不需要训练项目或 PyTorch；启动时核对 SHA-256、关节集合和模型接口。
 - `motion_files`：可信的 Tiangong 29 关节 MotionLib `.pkl` 文件列表。
-  当前使用仓库内 `motions/walk_forward_loop_001__A022.pkl`（20.58 秒）。
+  当前包含仓库内两个动作：`motions/walk_forward_loop_001__A022.pkl`（20.58 秒，默认）
+  和 `motions/squat_001__A362.pkl`（9.86 秒）。READY 后按 `]` 选择下蹲，再按 `p` 播放。
+  下蹲沿用此前 InstantTrack 使用的 grounded 动作源，保留原始 29 关节数据，运行时重采样到 50 Hz。
   换动作只需修改此列表并重启节点，不需重新导出网络。
   文件中的 `dof` 必须采用导出 mapping 的 `mjcf` 顺序，`root_rot` 为 `xyzw`。
 - `idle_motion_file`：IDLE 自动循环跟踪的动作，当前为 `idle_loop_001__A028.pkl`。

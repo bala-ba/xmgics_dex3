@@ -329,6 +329,10 @@
       "bytes": 627252,
       "sha256": "8fe618e8befeac92e99168162b80c0235a9dc07f19804ff2e013dbbb07452ec1"
     },
+    "policy/sonic_track/motions/squat_001__A362.pkl": {
+      "bytes": 242932,
+      "sha256": "3f9cf1dcb3a57e4976c9a521a9c784cfd69f24ed5414c8740746e30ade168a93"
+    },
     "policy/sonic_track/motions/walk_forward_loop_001__A022.pkl": {
       "bytes": 505684,
       "sha256": "c497bad644918e422ebc5dc887ae94236a3966ac9ebca448b8cea81b94af4fa0"

@@ -9,7 +9,7 @@ PyTorch、IsaacLab 或 CUDA。只运行 ONNX CPU 推理即可。
 | 功能 | 仓库内文件 | 状态 |
 | --- | --- | --- |
 | SONIC | `policy/sonic_track/model/export_100000_20261103_111558/` | encoder、decoder、manifest、mapping、训练配置、验证向量齐全 |
-| SONIC 参考动作 | `policy/sonic_track/motions/` | IDLE 的 `idle_loop_001__A028.pkl` 和播放用 `walk_forward_loop_001__A022.pkl` |
+| SONIC 参考动作 | `policy/sonic_track/motions/` | IDLE 的 `idle_loop_001__A028.pkl`、行走 `walk_forward_loop_001__A022.pkl`、下蹲 `squat_001__A362.pkl` |
 | InstantTrack | `policy/instant_track/model/` | 5 套包，每套含 `policy.onnx`、`motion_000.npz`、`manifest.json`、`validation.npz` |
 | 默认 STAND / DEXAMP / DEXDELTA / MULTIAMP | 各 `policy/*/model/` | 齐全 |
 | 旧 WALKAMP / WALKLION / WALKLIONDWAQ / BEYONDMIMIC | 各 `policy/*/model/` | 补入当前配置指定的 4 个模型，保持原有禁用/未注册状态 |

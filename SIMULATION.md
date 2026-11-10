@@ -8,6 +8,7 @@
 - 默认 `sim: true`、键盘控制、关闭深度图；控制命令 100 Hz，SONIC / InstantTrack 推理 50 Hz。
 - SONIC 完整导出位于仓库内 `policy/sonic_track/model/export_100000_20261103_111558/`。
   IDLE 循环 `idle_loop_001__A028.pkl`，`p` 播放 `walk_forward_loop_001__A022.pkl`。
+  READY 后按 `]` 可选择 `squat_001__A362.pkl` 下蹲动作，再按 `p` 播放。
 - InstantTrack 默认是 `ckpt_438000` 的第一段直行，其他四套动作包也已打包。
 - STAND、DEXAMP、DEXDELTA、MULTIAMP 已启用并包含模型。
 - WALKAMP 模型已补齐但默认禁用；WALKDEPTH / WALKDEPTH100HZ 缺少其指定模型，保持禁用。

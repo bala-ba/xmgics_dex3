@@ -5,6 +5,7 @@ export_dir: policy/sonic_track/model/export_100000_20261103_111558
 idle_motion_file: policy/sonic_track/motions/idle_loop_001__A028.pkl
 motion_files:
   - policy/sonic_track/motions/walk_forward_loop_001__A022.pkl
+  - policy/sonic_track/motions/squat_001__A362.pkl
 
 dt: 0.01                 # Must match config/dex_config.yaml main-loop dt.
 control:
