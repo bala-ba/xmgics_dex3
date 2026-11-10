@@ -33,6 +33,9 @@ class ControlFlag:
     yaw_speed_command: float = 0.0
     # Increment for each discrete FSM event; held commands keep the same ID.
     fsm_event_id: int = 0
+    # Reference playback events do not replace the current FSM command.
+    motion_command: str = ""
+    motion_event_id: int = 0
 
 
 @dataclass

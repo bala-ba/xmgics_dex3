@@ -56,10 +56,17 @@ class KeyboardController:
         
         print("Available keyboard commands:")
         print("  z - Goto ZERO state")
+        print("  1 - Enter STAND from ZERO; continuously run the standing policy")
         print("  c - Goto STOP state")
         print("  v - Goto BEYONDMIMIC state")
         print("  o - Goto BEYONDZERO state")
         print("  m - Goto WALKAMP state")
+        print("  t - Enter SONICTRACK from ZERO; automatically track the IDLE loop")
+        print("  b - Enter INSTANTTRACK from ZERO/STAND; prepare for 2 s, then automatically play")
+        print("  INSTANTTRACK: p plays/resumes, i freezes reference (policy stays active), [ / ] selects")
+        print("  p - In STAND: immediately play InstantTrack from frame 0")
+        print("  p / i - SONICTRACK play selection / return to IDLE loop")
+        print("  [ / ] - SONICTRACK select previous / next motion")
         print("  g - Goto LIONZERO prep state")
         print("  l - Start WALKLION state from LIONZERO")
         print("  h - Start WALKLIONDWAQ state from LIONZERO")
@@ -181,6 +188,8 @@ class KeyboardController:
             self._on_e_key()
         elif key == 'z':
             self._on_z_key()
+        elif key == '1':
+            self._on_stand_key()
         elif key == 'c':
             self._on_c_key()
         elif key == 'm':
@@ -199,6 +208,16 @@ class KeyboardController:
             self._on_g_key()
         elif key == 'p':
             self._on_p_key()
+        elif key == 't':
+            self._on_t_key()
+        elif key == 'b':
+            self._on_b_key()
+        elif key == 'i':
+            self._motion_event("idle")
+        elif key == '[':
+            self._motion_event("previous")
+        elif key == ']':
+            self._motion_event("next")
         elif key == 'o':
             self._on_o_key()
         elif key == 'v':
@@ -342,7 +361,40 @@ class KeyboardController:
             print("Command: gotoLIONZERO")
         
     def _on_p_key(self):
-        print("p key pressed - available for additional functions")
+        self._motion_event("play")
+
+    def _on_t_key(self):
+        with self.data_mutex:
+            self.keyboard_flag.fsm_state_command = "gotoSONICTRACK"
+            self.keyboard_flag.fsm_event_id += 1
+            self.keyboard_flag.x_speed_command = 0.0
+            self.keyboard_flag.y_speed_command = 0.0
+            self.keyboard_flag.yaw_speed_command = 0.0
+            print("Command: gotoSONICTRACK (enter ZERO with z first)")
+
+    def _on_stand_key(self):
+        with self.data_mutex:
+            self.keyboard_flag.fsm_state_command = "gotoSTAND"
+            self.keyboard_flag.fsm_event_id += 1
+            self.keyboard_flag.x_speed_command = 0.0
+            self.keyboard_flag.y_speed_command = 0.0
+            self.keyboard_flag.yaw_speed_command = 0.0
+            print("Command: gotoSTAND (enter ZERO with z first)")
+
+    def _on_b_key(self):
+        with self.data_mutex:
+            self.keyboard_flag.fsm_state_command = "gotoINSTANTTRACK"
+            self.keyboard_flag.fsm_event_id += 1
+            self.keyboard_flag.x_speed_command = 0.0
+            self.keyboard_flag.y_speed_command = 0.0
+            self.keyboard_flag.yaw_speed_command = 0.0
+            print("Command: gotoINSTANTTRACK (from ZERO/STAND; prepare, then automatically play)")
+
+    def _motion_event(self, command):
+        with self.data_mutex:
+            self.keyboard_flag.motion_command = command
+            self.keyboard_flag.motion_event_id += 1
+            print(f"Tracking reference command: {command}")
         
     def _on_o_key(self):
         """处理o键 - 切换到BEYONDZERO状态"""

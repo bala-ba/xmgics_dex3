@@ -26,6 +26,8 @@ class FSMStateName(Enum):
     MULTIAMP = 12 # Dex29 student: stand/walk <-> prone
     DEXAMP = 13   # Dex23 AMP; independent internal enum, websocket ID is 4
     DEXDELTA = 15 # Dex15 Delta/MSL
+    SONICTRACK = 16 # Tiangong2Dex SONIC reference tracking, 29 DoF / 50 Hz
+    INSTANTTRACK = 17 # Tiangong InstantTrack reference tracking, 29 DoF / 50 Hz
 
 class FSMState(ABC):
     """FSM状态抽象基类"""

@@ -61,7 +61,7 @@ EVENT_TO_FSM = {
     "init_pose": "gotoZERO",
     "run_policy": "gotoWALKAMP",
     "enable_warking_policy": "gotoWALKDEPTH",
-    "enable_standing_policy": "gotoWALKAMP",
+    "enable_standing_policy": "gotoSTAND",
     # "enable_robust_policy": "gotoWALKDEPTH100HZ",
     "enable_robust_policy": "gotoMULTIAMP",  # dex 盲走 AMP v2 (kb $)
     # "enable_robust_policy": "gotoDEXAMP",
@@ -85,6 +85,7 @@ COMMAND_TO_STATE_ID = {
     "gotoDEXDELTA": 4,
     "gotoSTOP": 1,
     "gotoZERO": 2,
+    "gotoSTAND": 5,
     "gotoWALKAMP": 3,
     "gotoWALKDEPTH": 4,
     "gotoWALKDEPTH100HZ": 5,
@@ -406,7 +407,7 @@ class WebsocketController:
             elif name in EVENT_TO_FSM:
                 command = EVENT_TO_FSM[name]
 
-                if command == "gotoMULTIAMP":
+                if command in ("gotoMULTIAMP", "gotoSTAND"):
                     # 一次按下/松开只计一次，忽略长按产生的重复按下。
                     # 同时支持只发送 value=2 的点击端。
                     if value not in (1, 2):
@@ -416,6 +417,10 @@ class WebsocketController:
 
                 self.flag.fsm_state_command = command
                 self.flag.fsm_event_id += 1
+                if command == "gotoSTAND":
+                    self.flag.x_speed_command = 0.0
+                    self.flag.y_speed_command = 0.0
+                    self.flag.yaw_speed_command = 0.0
                 return True
             else:
                 print(f"[ws-console] ignored event '{name}'")

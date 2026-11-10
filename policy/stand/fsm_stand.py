@@ -27,6 +27,8 @@ class FSMStateSTAND(FSMState):
 
     def __init__(self, robot_data: RobotData):
         super().__init__(robot_data)
+        self.current_state_name = FSMStateName.STAND
+        self.inference_count = 0
 
         current_dir = os.path.dirname(os.path.abspath(__file__))
         config_path = os.path.join(current_dir, "config", "stand.yaml")
@@ -140,15 +142,23 @@ class FSMStateSTAND(FSMState):
             options.enable_mem_reuse = True
             self.ort_session_ = ort.InferenceSession(
                 self.model_path, options, providers=['CPUExecutionProvider'])
+            inputs, outputs = self.ort_session_.get_inputs(), self.ort_session_.get_outputs()
+            if (len(inputs) != 1 or len(outputs) != 1
+                    or inputs[0].shape != [1, self.obs_size_ * self.num_hist_]
+                    or inputs[0].type != 'tensor(float)'
+                    or outputs[0].shape != [1, self.action_num_]):
+                raise ValueError('STAND requires [1, 840] float input and [1, 15] output')
+            self.input_name = inputs[0].name
             print(f"[FSMStateSTAND-ONNX] ONNX model loaded successfully: {self.model_path}")
         except Exception as e:
             print(f"[FSMStateSTAND] Failed to load ONNX model: {e}")
             raise RuntimeError(f"Failed to load ONNX model: {e}")
-            self.ort_session_ = None
 
     def on_enter(self):
         """进入STAND: 历史清零, 时钟复位(同 ovinf WarmUp)"""
         self._inference_clock.reset()
+        self._last_motion_event = self.robot_data_.control_flag.motion_event_id
+        self.inference_count = 0
         self.proprio_hist_buf_.fill(0.0)
         self.last_actions_.fill(0.0)
         self.actions_.fill(0.0)
@@ -217,18 +227,23 @@ class FSMStateSTAND(FSMState):
             self.proprio_hist_buf_[:shift] = self.proprio_hist_buf_[self.obs_size_:]
             self.proprio_hist_buf_[shift:] = proprio
 
+        if not np.isfinite(self.proprio_hist_buf_).all():
+            raise FloatingPointError('Non-finite STAND observation')
         return np.clip(self.proprio_hist_buf_, -self.clip_obs_, self.clip_obs_)
 
     def compute_actions(self, policy_input: np.ndarray):
         if self.ort_session_ is None:
-            return
+            raise RuntimeError('STAND policy session is unavailable')
         try:
-            input_name = self.ort_session_.get_inputs()[0].name
             outputs = self.ort_session_.run(
-                None, {input_name: policy_input.reshape(1, -1).astype(np.float32)})
+                None, {self.input_name: policy_input.reshape(1, -1).astype(np.float32)})
+            if outputs[0].shape != (1, self.action_num_) or not np.isfinite(outputs[0]).all():
+                raise FloatingPointError('Invalid STAND action')
             self.actions_ = np.clip(outputs[0][0], -self.clip_act_, self.clip_act_)
+            self.inference_count += 1
         except Exception as e:
-            print(f"[FSMStateSTAND] ONNX Runtime inference error: {e}")
+            # The control node catches this and enters STOP using current feedback.
+            raise RuntimeError('STAND inference failed; refusing stale action') from e
 
     def run(self, flag: ControlFlag):
         """运行STAND状态"""
@@ -259,13 +274,19 @@ class FSMStateSTAND(FSMState):
         print("[FSMStateSTAND] exit")
 
     def check_transition(self, flag: ControlFlag) -> FSMStateName:
+        fresh_motion = flag.motion_event_id != self._last_motion_event
+        self._last_motion_event = flag.motion_event_id
         if flag.fsm_state_command == "gotoSTOP":
             return FSMStateName.STOP
         elif flag.fsm_state_command == "gotoZERO":
             return FSMStateName.ZERO
+        elif flag.fsm_state_command == "gotoINSTANTTRACK":
+            return FSMStateName.INSTANTTRACK
         elif flag.fsm_state_command == "gotoWALKAMP":
             return FSMStateName.WALKAMP
         elif flag.fsm_state_command == "gotoWALKDEPTH":
             return FSMStateName.WALKDEPTH
+        elif fresh_motion and flag.motion_command == "play":
+            return FSMStateName.INSTANTTRACK
         else:
             return None

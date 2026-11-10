@@ -2,11 +2,19 @@ motor_num: 29        # 电机数量
 # actions_size: 12     # action的大小
 dt: 0.01
 
-sim: false # true:仿真模式 false:真机模式
+sim: true # true:仿真模式 false:真机模式
 
 debug: false
 
-control_tool: websocket # joystick, xbox, keyboard
+control_tool: keyboard # joystick, xbox, keyboard, websocket
+
+# These policies include their ONNX files. WALKAMP/WALKDEPTH/
+# WALKDEPTH100HZ require additional model files before enabling them.
+enabled_policy_states: [STAND, DEXAMP, DEXDELTA, MULTIAMP]
+sonic_track:
+  enabled: true  # policy/sonic_track/config/sonic_track.yaml
+instant_track:
+  enabled: true  # policy/instant_track/config/instant_track.yaml
 
 joystick:
   initial_height: 0.957
@@ -61,12 +69,12 @@ robot_interface:
   clip_actions: false
   waist_control_status: ["ZERO", "STOP", "BEYONDMIMIC", "BEYONDZERO", "WALKAMP",
                          "WALKLION", "WALKLIONDWAQ", "LIONZERO", "POLICYZERO",
-                         "WALKDEPTH", "STAND", "WALKDEPTH100HZ", "MULTIAMP", "DEXAMP", "DEXDELTA"
+                         "WALKDEPTH", "STAND", "WALKDEPTH100HZ", "MULTIAMP", "DEXAMP", "DEXDELTA", "SONICTRACK", "INSTANTTRACK"
                         ] #
   legs_control_status: [] #空代表都允许控制，仅腿部是这个逻辑
   arms_control_status: ["ZERO", "STOP",  "BEYONDMIMIC", "BEYONDZERO", "WALKAMP",
                         "WALKLION", "WALKLIONDWAQ", "LIONZERO", "POLICYZERO",
-                         "WALKDEPTH", "STAND", "WALKDEPTH100HZ", "MULTIAMP", "DEXAMP", "DEXDELTA"
+                        "WALKDEPTH", "STAND", "WALKDEPTH100HZ", "MULTIAMP", "DEXAMP", "DEXDELTA", "SONICTRACK", "INSTANTTRACK"
                        ] #
   left_arm_only_status: []
   right_arm_only_status: []
@@ -135,7 +143,7 @@ robot_interface:
   # 深度相机 (bitbot-ovinf config/dex/dex_mj.xml MujocoDepthCamera)
   depth:
     camera: depth_camera
-    type: ros2       # ros2, disable（Orbbec SDK 直采已注释）
+    type: disable    # SONIC does not use depth; ros2 for depth policies
     ros2:
       topic: /camera/depth/image_raw
       # d_type: 32FC1        # 32FC1, 16UC1

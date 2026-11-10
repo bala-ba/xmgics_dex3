@@ -20,6 +20,8 @@ from policy.walk_depth_100hz.fsm_walkdepth_100hz import FSMStateWALKDEPTH100HZ
 from policy.multi_amp.fsm_multiamp import FSMStateMULTIAMP
 from policy.dex_amp.fsm_dexamp import FSMStateDEXAMP
 from policy.dex_delta.fsm_dexdelta import FSMStateDEXDELTA
+from policy.sonic_track.fsm_sonic_track import FSMStateSONICTRACK
+from policy.instant_track.fsm_instant_track import FSMStateINSTANTTRACK
 from common.robot_data import RobotData
 from common.joystick import ControlFlag
 import functools
@@ -65,21 +67,31 @@ class RobotFSMImpl(RobotFSM):
         """初始化所有状态对象"""
         self.state_objects[FSMStateName.STOP] = FSMStateStop(self.robot_data_)
         self.state_objects[FSMStateName.ZERO] = FSMStateZero(self.robot_data_)
-        self.state_objects[FSMStateName.WALKAMP] = FSMStateWALKAMP(self.robot_data_)
         # self.state_objects[FSMStateName.BEYONDMIMIC] = FSMStateBeyondMimic(self.robot_data_)
         # self.state_objects[FSMStateName.BEYONDZERO] = FSMStateBeyondZero(self.robot_data_)
         # self.state_objects[FSMStateName.WALKLION] = FSMStateWalkLion(self.robot_data_)
         # self.state_objects[FSMStateName.WALKLIONDWAQ] = FSMStateWalkLionDwaq(self.robot_data_)
         # self.state_objects[FSMStateName.LIONZERO] = FSMStateLionZero(self.robot_data_)
         # self.state_objects[FSMStateName.POLICYZERO] = FSMStatePolicyZero(self.robot_data_)
-        self.state_objects[FSMStateName.WALKDEPTH] = FSMStateWALKDEPTH(self.robot_data_)
-        # self.state_objects[FSMStateName.STAND] = FSMStateSTAND(self.robot_data_)
-        self.state_objects[FSMStateName.WALKDEPTH100HZ] = FSMStateWALKDEPTH100HZ(
-            self.robot_data_
-        )
-        self.state_objects[FSMStateName.MULTIAMP] = FSMStateMULTIAMP(self.robot_data_)
-        self.state_objects[FSMStateName.DEXAMP] = FSMStateDEXAMP(self.robot_data_)
-        self.state_objects[FSMStateName.DEXDELTA] = FSMStateDEXDELTA(self.robot_data_)
+        factories = {
+            "STAND": FSMStateSTAND,
+            "WALKAMP": FSMStateWALKAMP,
+            "WALKDEPTH": FSMStateWALKDEPTH,
+            "WALKDEPTH100HZ": FSMStateWALKDEPTH100HZ,
+            "MULTIAMP": FSMStateMULTIAMP,
+            "DEXAMP": FSMStateDEXAMP,
+            "DEXDELTA": FSMStateDEXDELTA,
+        }
+        # Missing optional model files must not prevent SONIC/STOP/ZERO startup.
+        enabled = self.config.get("enabled_policy_states", list(factories))
+        if not isinstance(enabled, list) or any(name not in factories for name in enabled):
+            raise ValueError(f"enabled_policy_states must be a list of {list(factories)}")
+        for name in enabled:
+            self.state_objects[FSMStateName[name]] = factories[name](self.robot_data_)
+        if self.config.get("sonic_track", {}).get("enabled", False):
+            self.state_objects[FSMStateName.SONICTRACK] = FSMStateSONICTRACK(self.robot_data_)
+        if self.config.get("instant_track", {}).get("enabled", False):
+            self.state_objects[FSMStateName.INSTANTTRACK] = FSMStateINSTANTTRACK(self.robot_data_)
         # TODO: 添加其他状态对象
 
     # @timing_decorator

@@ -1,0 +1,10 @@
+# Export contains checkpoint EMA weights, PD parameters and resampled references.
+export_dir: policy/instant_track/model/ckpt_438000
+dt: 0.01
+control:
+  decimation: 2
+  preparation_seconds: 2.0
+  entry_max_joint_error: 0.35  # rad: legs/waist vs first reference, before READY and on p
+  entry_max_tilt_error: 0.35   # rad, yaw is aligned separately
+  # Same feedback-based PD torque limiting used by DEXAMP. No extra action clip.
+  torque_limit_enabled: true

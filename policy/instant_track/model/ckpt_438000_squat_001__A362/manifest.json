@@ -1,0 +1,430 @@
+{
+  "format_version": 1,
+  "robot": "tiangong",
+  "iteration": 438000,
+  "checkpoint": "/home/lzp/projects/instantTrack/logs/tiangong_single_20261109_004112/ckpt_438000.pt",
+  "checkpoint_sha256": "c682362b0bfb2df9c7277a3fc59668cf703d0ebfe3d8feb15de7d4bee80254fe",
+  "weights_key": "pi",
+  "precision": "float32",
+  "control_dt": 0.02,
+  "history": 10,
+  "observation_size": 99,
+  "goal_size": 730,
+  "joint_names": [
+    "hip_pitch_l_joint",
+    "hip_roll_l_joint",
+    "hip_yaw_l_joint",
+    "knee_pitch_l_joint",
+    "ankle_pitch_l_joint",
+    "ankle_roll_l_joint",
+    "hip_pitch_r_joint",
+    "hip_roll_r_joint",
+    "hip_yaw_r_joint",
+    "knee_pitch_r_joint",
+    "ankle_pitch_r_joint",
+    "ankle_roll_r_joint",
+    "waist_yaw_joint",
+    "waist_roll_joint",
+    "waist_pitch_joint",
+    "shoulder_pitch_l_joint",
+    "shoulder_roll_l_joint",
+    "shoulder_yaw_l_joint",
+    "elbow_pitch_l_joint",
+    "elbow_yaw_l_joint",
+    "wrist_pitch_l_joint",
+    "wrist_roll_l_joint",
+    "shoulder_pitch_r_joint",
+    "shoulder_roll_r_joint",
+    "shoulder_yaw_r_joint",
+    "elbow_pitch_r_joint",
+    "elbow_yaw_r_joint",
+    "wrist_pitch_r_joint",
+    "wrist_roll_r_joint"
+  ],
+  "default_joint_pos": [
+    -0.25,
+    0.0,
+    0.0,
+    0.5,
+    -0.25,
+    0.0,
+    -0.25,
+    0.0,
+    0.0,
+    0.5,
+    -0.25,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -0.3,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    -0.3,
+    0.0,
+    0.0,
+    0.0
+  ],
+  "action_scale": [
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25,
+    0.25
+  ],
+  "kp": [
+    300.0,
+    300.0,
+    150.0,
+    350.0,
+    30.0,
+    16.8,
+    300.0,
+    300.0,
+    150.0,
+    350.0,
+    30.0,
+    16.8,
+    400.0,
+    400.0,
+    400.0,
+    150.0,
+    50.0,
+    50.0,
+    150.0,
+    50.0,
+    20.0,
+    20.0,
+    150.0,
+    50.0,
+    50.0,
+    150.0,
+    50.0,
+    20.0,
+    20.0
+  ],
+  "kd": [
+    15.0,
+    15.0,
+    7.5,
+    15.0,
+    3.75,
+    2.1,
+    15.0,
+    15.0,
+    7.5,
+    15.0,
+    3.75,
+    2.1,
+    5.0,
+    15.0,
+    10.0,
+    5.0,
+    2.5,
+    2.5,
+    5.0,
+    5.0,
+    2.0,
+    2.0,
+    5.0,
+    2.5,
+    2.5,
+    5.0,
+    5.0,
+    2.0,
+    2.0
+  ],
+  "torque_limits": [
+    235.0,
+    235.0,
+    150.0,
+    400.0,
+    55.0,
+    55.0,
+    235.0,
+    235.0,
+    150.0,
+    400.0,
+    55.0,
+    55.0,
+    91.0,
+    91.0,
+    91.0,
+    91.0,
+    60.0,
+    36.0,
+    60.0,
+    36.0,
+    36.0,
+    36.0,
+    91.0,
+    60.0,
+    36.0,
+    60.0,
+    36.0,
+    36.0,
+    36.0
+  ],
+  "joint_limits": [
+    [
+      -3.141590118408203,
+      2.8797900676727295
+    ],
+    [
+      -0.4188790023326874,
+      2.617990016937256
+    ],
+    [
+      -1.5707999467849731,
+      4.3633198738098145
+    ],
+    [
+      -0.08726649731397629,
+      2.5307300090789795
+    ],
+    [
+      -1.2217299938201904,
+      0.5235990285873413
+    ],
+    [
+      -0.5235990285873413,
+      0.5235990285873413
+    ],
+    [
+      -3.141590118408203,
+      2.8797900676727295
+    ],
+    [
+      -2.617990016937256,
+      0.4188790023326874
+    ],
+    [
+      -4.3633198738098145,
+      1.5707999467849731
+    ],
+    [
+      -0.08726649731397629,
+      2.5307300090789795
+    ],
+    [
+      -1.2217299938201904,
+      0.5235990285873413
+    ],
+    [
+      -0.5235990285873413,
+      0.5235990285873413
+    ],
+    [
+      -3.2288599014282227,
+      2.792530059814453
+    ],
+    [
+      -0.5235990285873413,
+      0.5235990285873413
+    ],
+    [
+      -0.5235990285873413,
+      0.9599310159683228
+    ],
+    [
+      -2.967060089111328,
+      2.967060089111328
+    ],
+    [
+      -0.26179900765419006,
+      3.4033899307250977
+    ],
+    [
+      -2.967060089111328,
+      2.967060089111328
+    ],
+    [
+      -2.617990016937256,
+      0.26179900765419006
+    ],
+    [
+      -2.967060089111328,
+      2.967060089111328
+    ],
+    [
+      -1.3962600231170654,
+      1.3962600231170654
+    ],
+    [
+      -1.3962600231170654,
+      1.3962600231170654
+    ],
+    [
+      -2.967060089111328,
+      2.967060089111328
+    ],
+    [
+      -3.4033899307250977,
+      0.26179900765419006
+    ],
+    [
+      -2.967060089111328,
+      2.967060089111328
+    ],
+    [
+      -2.617990016937256,
+      0.26179900765419006
+    ],
+    [
+      -2.967060089111328,
+      2.967060089111328
+    ],
+    [
+      -1.3962600231170654,
+      1.3962600231170654
+    ],
+    [
+      -1.3962600231170654,
+      1.3962600231170654
+    ]
+  ],
+  "reference_residual": true,
+  "motions": [
+    {
+      "name": "squat_001__A362",
+      "file": "motion_000.npz",
+      "source": "/home/lzp/projects/GR00T-WholeBodyControl/data/motion_lib_bones_seed/tiangong2dex_29dof_scheme_d_grounded_robot_filtered/230509/squat_001__A362.pkl",
+      "sha256": "3f9cf1dcb3a57e4976c9a521a9c784cfd69f24ed5414c8740746e30ade168a93",
+      "frames": 494,
+      "duration": 9.86
+    }
+  ],
+  "observation_fields": [
+    "joint_pos_minus_default",
+    "joint_vel",
+    "body_angular_velocity",
+    "projected_gravity",
+    "previous_raw_action",
+    "reference_relative_rotation_6d"
+  ],
+  "hashes": {
+    "policy.onnx": "9a65e2ae28ee4cb7199d5abecee1355d726e99d186e9f18a928cabc3155cb429",
+    "motion_000.npz": "f8d9cd39b63fcf572f3077d723161873e4396ce49fdda78a940e41dde601d0c3",
+    "validation.npz": "a02d2f037e023400cdad159ac05ada1b5abf02e192669f6b59ec83599bc3f612"
+  },
+  "source_hashes": {
+    "networks.py": "3717599f53d84daf1705d741e1f249168e01cbac557a588106f60c8a8526fbe2",
+    "mdp.py": "97fe5ec3b8542dd2a3e4799d801255e40a7fb9d82aab1406b8de2da0c08b975e",
+    "motion.py": "27192a0d8479dbb366a09e90962137b993f1c734a21391fcd84acfe728221cce",
+    "rotations.py": "c06b07af580994a4bc71d650cd9d186e4249499ebdd0bc67833e7388cf7ae6ad",
+    "kinematics.py": "20d16bf17a76fce659494b69131f38f8ffbccd990a44c1c96884b59b18ecf4c4",
+    "robot.py": "1811f4c859b5043e50a78fda039f2fa8230573b18bc12bc18ee8f8c186aaaf60",
+    "tiangong/tiangong_constants.py": "58b24a06bbff7f0facbfb9dad34506fe4d1a6c3446d36724153940623a2a7384"
+  },
+  "onnx_torch_max_abs_error": 3.814697265625e-06,
+  "training_args": {
+    "robot": "tiangong",
+    "num_envs": 4096,
+    "iterations": 640000,
+    "buffer_steps": 1000,
+    "utd": 0.4,
+    "horizon": 32,
+    "goal_frames": 10,
+    "eprobe_active": 372,
+    "batch_goal_enc": true,
+    "hist": 10,
+    "wm_window": 8,
+    "wm_batches": 5,
+    "wm_batch": 2048,
+    "pi_batch": 2048,
+    "lr": 0.0004,
+    "gamma": 0.99,
+    "lam": 0.95,
+    "action_noise": 0.1,
+    "critic_epochs": 5,
+    "critic_minibatches": 4,
+    "wm_hidden": "1024,1024,1024",
+    "enc_hidden": "2048,1024,512,256",
+    "dec_hidden": "2048,1024,512,256",
+    "no_sync": true,
+    "fail_reset": 0.3,
+    "fused_adam": true,
+    "pi_beta1": 0.9,
+    "pi_clip_value": 0.1,
+    "fused_rot": true,
+    "compile_more": true,
+    "pi_ema": 0.995,
+    "warmup_steps": 64,
+    "contact_reward": 0.25,
+    "wm_structured": true,
+    "wm_mirror": 0.5,
+    "pi_opt": "muon",
+    "wm_opt": "muon",
+    "wm_only_iters": 0,
+    "bin_fix": true,
+    "pi_lr_mult": 4.0,
+    "lr_decay_ret": 0.75,
+    "lr_decay_len": 300,
+    "pi_anneal_len": 3000,
+    "pi_anneal_min": 0.1,
+    "lr_decay_by": 1400,
+    "ref_contact_fix": true,
+    "pi_ref_skip": true,
+    "eprobe_share": 0.15,
+    "eprobe_tile": 300,
+    "eprobe_lead_min": 200,
+    "eprobe_lead_max": 450,
+    "eprobe_every": 125,
+    "eprobe_start": 1000,
+    "eprobe_win": 10,
+    "eprobe_decay": 0.7,
+    "eprobe_graph": true,
+    "eprobe_async": 10,
+    "collect_graph": true,
+    "reset_masked": true,
+    "graph_early": true,
+    "cuda_graph": true,
+    "static_compile": true,
+    "overlap_collect": true,
+    "overlap_critic": true,
+    "overlap_wm": true,
+    "lr_decay_iters": 250000,
+    "ckpt_every": 2000,
+    "ckpt_light": true,
+    "ckpt_minutes": 3.0,
+    "max_hours": 12.0,
+    "log_every": 50,
+    "motion_dir": "/home/lzp/projects/assets/data/lafan1/tiangong2dex_jointVel",
+    "log_dir": "logs/tiangong_single_20261109_004112",
+    "seed": 0,
+    "resume": null,
+    "amp": "bf16",
+    "dist_timeout_s": 600
+  }
+}

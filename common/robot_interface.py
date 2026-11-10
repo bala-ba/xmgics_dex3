@@ -172,6 +172,7 @@ class RobotInterfaceImpl(RobotInterface):
         # prep/stop/zero states force RobotData.walk_cmd_ back to zero so stale
         # controller input cannot leak into a later policy tick.
         self.walk_command_status = {
+            FSMStateName.STAND,
             FSMStateName.WALKAMP,
             FSMStateName.WALKLION,
             FSMStateName.WALKLIONDWAQ,
@@ -982,6 +983,20 @@ class RobotInterfaceImpl(RobotInterface):
                 pass  # 如果仍然无法加入，忽略
 
 
+    @staticmethod
+    def _checked_ankle_state(result, operation):
+        """Validate the Dex 3.0 ABI before writing feedback or actuator buffers."""
+        try:
+            success, q, dq, tau = result
+            if not isinstance(success, (bool, np.bool_)) or not success:
+                raise ValueError("solver returned success=False or invalid status")
+            arrays = tuple(np.asarray(x, dtype=np.float64) for x in (q, dq, tau))
+            if any(x.shape != (4,) or not np.isfinite(x).all() for x in arrays):
+                raise ValueError("expected three finite four-element arrays")
+        except (TypeError, ValueError) as exc:
+            raise RuntimeError(f"Dex 3.0 ankle {operation} failed: {exc}") from exc
+        return arrays
+
     def ankle_parallel_to_serial(self):
         # 串并联转换：并转串 (类似C++版本中的处理)
         # 提取左右脚两个踝关节（并联关节）
@@ -1015,7 +1030,8 @@ class RobotInterfaceImpl(RobotInterface):
         self.fun_s2p.calcIK()
 
         # 3.0 sptlib 使用返回值；不再向预分配数组原地写入。
-        success, q_a_s, qdot_a_s, tor_a_s = self.fun_s2p.get_s_state()
+        q_a_s, qdot_a_s, tor_a_s = self._checked_ankle_state(
+            self.fun_s2p.get_s_state(), "parallel-to-serial")
 
         if self.debug:
             print("-" * 20 + "并转串联后" + "-" * 20)
@@ -1085,7 +1101,8 @@ class RobotInterfaceImpl(RobotInterface):
         self.fun_s2p.set_s_des(q_d_s, qdot_d_s, tor_d_s)
         self.fun_s2p.calc_joint_pos_ref()
         self.fun_s2p.calc_joint_tor_des()
-        success, q_d_p, qdot_d_p, tor_d_p = self.fun_s2p.get_p_des()
+        q_d_p, qdot_d_p, tor_d_p = self._checked_ankle_state(
+            self.fun_s2p.get_p_des(), "serial-to-parallel")
 
         ankle_indices = np.concatenate((self.left_ankle_indices, self.right_ankle_indices))
         q_a_p = self.robot_data_.q_a_p_[ankle_indices]

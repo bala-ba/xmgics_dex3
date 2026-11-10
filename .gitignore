@@ -1,6 +1,8 @@
 *.pyc
 .vscode
 .venv
+.validation/
+outputs/
 __pycache__/
 .history
 bag/
@@ -12,3 +14,6 @@ Log
 scripts/Log
 tests/
 docs/
+
+# Keep complete InstantTrack deployment bundles in the repository.
+!policy/instant_track/model/**/policy.onnx

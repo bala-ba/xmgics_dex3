@@ -71,7 +71,13 @@ class FSMStateZero(FSMState):
 
     def check_transition(self, flag: ControlFlag) -> FSMStateName:
         """检查状态转换"""
-        if flag.fsm_state_command == "gotoDEXAMP":
+        if flag.fsm_state_command == "gotoSTAND":
+            return FSMStateName.STAND
+        elif flag.fsm_state_command == "gotoINSTANTTRACK":
+            return FSMStateName.INSTANTTRACK
+        elif flag.fsm_state_command == "gotoSONICTRACK":
+            return FSMStateName.SONICTRACK
+        elif flag.fsm_state_command == "gotoDEXAMP":
             return FSMStateName.DEXAMP
         elif flag.fsm_state_command == "gotoDEXDELTA":
             return FSMStateName.DEXDELTA

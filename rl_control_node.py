@@ -67,6 +67,9 @@ class XMIGCSControlNode(Node):
 
         # 加载配置
         self._load_config()
+        if sim is not None:
+            self.sim = bool(sim)
+            self.config["sim"] = self.sim
 
         # 初始化数据结构
         self._init_data_structures()
@@ -75,6 +78,8 @@ class XMIGCSControlNode(Node):
         self.robot_interface = get_robot_interface(self.robot_data,
                                                    self.config_file)
         self.robot_interface.init(self)  # 传入node实例
+        # Apply the sim entry point override before starting the control thread.
+        self.robot_interface.sim = self.sim
         # 机器人FSM
         self.robot_fsm = get_robot_fsm(
             self.robot_data,
@@ -100,7 +105,8 @@ class XMIGCSControlNode(Node):
     def _load_config(self):
         """加载配置文件"""
         # 获取包路径
-        self.config_file = os.path.join('.', 'config', 'dex_config.yaml')
+        self.config_file = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                        'config', 'dex_config.yaml')
 
         with open(self.config_file, 'r') as f:
             self.config = yaml.safe_load(f)
@@ -192,21 +198,28 @@ class XMIGCSControlNode(Node):
         # 初始化时间戳
         time_passed = 0.0
 
-        # 处理手柄数据
-        self._process_controller_data()
-        # 更新机器人数据
-        self._update_robot_data(self.control_flag, time_passed)
-
         while self.control_running and rclpy.ok():
+            loop_start = time.perf_counter()
+            self._process_controller_data()
+            self._update_robot_data(self.control_flag, time_passed)
 
             # 刷新深度帧(orbbec 直采路径; ROS 路径为空操作),
             # 必须在 run_fsm 之前, 策略读到的是本拍最新帧
-            # start_time = time.perf_counter()
             self.robot_interface.refresh_depth()
 
             # 运行FSM
-            loop_start = time.perf_counter()
-            self.robot_fsm.run_fsm(self.robot_data.control_flag)
+            try:
+                self.robot_fsm.run_fsm(self.robot_data.control_flag)
+            except (RuntimeError, FloatingPointError) as exc:
+                self.get_logger().error(f"Policy failed; entering STOP: {exc}")
+                # Keep publishing STOP hold targets instead of leaving the last
+                # active-policy target latched after a dead control thread.
+                self.control_flag.fsm_state_command = "gotoSTOP"
+                self.control_flag.x_speed_command = 0.0
+                self.control_flag.y_speed_command = 0.0
+                self.control_flag.yaw_speed_command = 0.0
+                self.robot_data.walk_cmd_[:] = 0.0
+                self.robot_fsm.run_fsm(self.control_flag)
 
             # 发布控制命令
             self.robot_interface.update_param(current_state=self.robot_fsm.get_current_state())
@@ -214,16 +227,6 @@ class XMIGCSControlNode(Node):
 
             # 更新时间戳
             time_passed += self.dt
-
-            # 处理手柄数据
-            self._process_controller_data()
-
-            # 更新机器人数据
-            self._update_robot_data(self.control_flag, time_passed)
-
-            # end_time = time.perf_counter()
-            # execution_time = end_time - start_time
-            # print(f"[Control loop] executed in {execution_time:.6f} seconds")
 
             # 控制频率
             self._precise_sleep_until(loop_start + self.dt)

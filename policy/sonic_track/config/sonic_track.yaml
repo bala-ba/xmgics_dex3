@@ -1,0 +1,18 @@
+# Paths are relative to the xmigcs_dex3 repository, or absolute.
+# Keep the complete validated export together; do not edit its manifest.
+export_dir: ../GR00T-WholeBodyControl/outputs/sim2sim/tiangong2dex/export_100000_20261103_111558
+# IDLE continuously plays this reference; independent of the p-key selection.
+idle_motion_file: ../GR00T-WholeBodyControl/data/motion_lib_bones_seed/tiangong2dex_29dof_scheme_d_soma_newton_velocity_projected_robot_filtered/220714/idle_loop_001__A028.pkl
+motion_files:
+  - ../GR00T-WholeBodyControl/data/motion_lib_bones_seed/tiangong2dex_29dof_hhtools_novlimit_robot_filtered/220713/walk_forward_loop_001__A022.pkl
+
+dt: 0.01                 # Must match config/dex_config.yaml main-loop dt.
+control:
+  decimation: 2          # 100 Hz command loop, 50 Hz inference/history.
+  preparation_seconds: 1.0  # Current pose/gains -> manifest nominal pose/gains.
+  stand_seconds: 1.0        # Minimum policy time before manual playback is allowed.
+  blend_seconds: 1.0        # Reference transition into/out of a clip.
+  idle_loop_blend_seconds: 1.0  # Smooth end -> start of each IDLE loop.
+
+# q_default, kp/kd, action_scale, limits and joint ordering come from the export.
+# z -> t automatically enters the IDLE loop; p plays selection; i returns to the loop.
