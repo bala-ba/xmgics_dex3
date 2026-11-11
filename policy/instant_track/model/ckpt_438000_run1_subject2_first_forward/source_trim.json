@@ -1,0 +1,20 @@
+{
+  "source": "/home/lzp/projects/assets/data/lafan1/tiangong2dex_jointVel/run1_subject2.csv",
+  "source_sha256": "54675611c1a7d1dbaef60136faf6a87839cabc746425157daa68baf558858ee7",
+  "source_frames": 7135,
+  "sample_rate": 30.0,
+  "start_frame": 336,
+  "end_frame": 402,
+  "start_seconds": 11.2,
+  "end_seconds": 13.4,
+  "frames": 67,
+  "duration": 2.2,
+  "trimmed_csv": "/home/lzp/projects/xmigcs_dex3/policy/instant_track/motions/run1_subject2_first_forward.csv",
+  "trimmed_sha256": "1604864049483dbf429c658ed21a35450bd906f48d6b7afb759846c8836c47e5",
+  "root_displacement_m": [
+    2.189327,
+    -0.176351,
+    -0.025863999999999998
+  ],
+  "selection": "First sustained positive-X translation, stopping before the large turn; original poses preserved and timestamps rebased"
+}

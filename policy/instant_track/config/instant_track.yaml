@@ -1,5 +1,5 @@
 # Export contains checkpoint EMA weights, PD parameters and resampled references.
-export_dir: policy/instant_track/model/ckpt_438000
+export_dir: policy/instant_track/model/ckpt_438000_run1_subject2_first_forward
 dt: 0.01
 control:
   decimation: 2

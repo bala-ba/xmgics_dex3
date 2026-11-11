@@ -261,6 +261,34 @@
       "bytes": 74942,
       "sha256": "7e5731cf1522b0f70fcf21a14143bd8be681c756f87d2a4b49515ead780dbfe1"
     },
+    "policy/instant_track/model/ckpt_438000_run1_subject2_first_forward/landing_trim.json": {
+      "bytes": 1330,
+      "sha256": "6405478920fefe3fb09b0c7134455fa7e46d5efe182efa33767267c26a120df0"
+    },
+    "policy/instant_track/model/ckpt_438000_run1_subject2_first_forward/manifest.json": {
+      "bytes": 9779,
+      "sha256": "f789c0f121a6048bd9de7761f134c80e92b0d4a774fa59a00c23ccb289efcbbe"
+    },
+    "policy/instant_track/model/ckpt_438000_run1_subject2_first_forward/motion_000.npz": {
+      "bytes": 121698,
+      "sha256": "17d66af80c226f399313176900ed6ec3f7c9bafb62aeaf3cb8d4be627fa33fb8"
+    },
+    "policy/instant_track/model/ckpt_438000_run1_subject2_first_forward/policy.onnx": {
+      "bytes": 36477539,
+      "sha256": "9a65e2ae28ee4cb7199d5abecee1355d726e99d186e9f18a928cabc3155cb429"
+    },
+    "policy/instant_track/model/ckpt_438000_run1_subject2_first_forward/source_trim.json": {
+      "bytes": 781,
+      "sha256": "2b3ec38cf229924a5b52f2750c9c76ed9ecf2814677532f76a50ecb9700c2f99"
+    },
+    "policy/instant_track/model/ckpt_438000_run1_subject2_first_forward/standing_tail.json": {
+      "bytes": 1417,
+      "sha256": "58243013a5057b7128274f25407e978bc17e23a2ca701cab5022314b5cbc6940"
+    },
+    "policy/instant_track/model/ckpt_438000_run1_subject2_first_forward/validation.npz": {
+      "bytes": 74913,
+      "sha256": "dc8999dbabd44a9840e83c6ef57d53a1902b0e54441dc2300a7b5986c8fa2464"
+    },
     "policy/instant_track/model/ckpt_438000_salute_002__A067/manifest.json": {
       "bytes": 8216,
       "sha256": "3c1afb809e0cc32068c0e2cecf972ef4d6d135608765298be8e4dee8159d8c4b"
@@ -292,6 +320,26 @@
     "policy/instant_track/model/ckpt_438000_squat_001__A362/validation.npz": {
       "bytes": 74938,
       "sha256": "a02d2f037e023400cdad159ac05ada1b5abf02e192669f6b59ec83599bc3f612"
+    },
+    "policy/instant_track/motions/run1_subject2_first_forward.csv": {
+      "bytes": 27517,
+      "sha256": "1604864049483dbf429c658ed21a35450bd906f48d6b7afb759846c8836c47e5"
+    },
+    "policy/instant_track/motions/run1_subject2_first_forward_landing_end.csv": {
+      "bytes": 39744,
+      "sha256": "54f92d81dbd3170d47955512dd2e6c039f7c527d19973b14212606b1a2fbc655"
+    },
+    "policy/instant_track/motions/run1_subject2_first_forward_landing_end.json": {
+      "bytes": 1330,
+      "sha256": "6405478920fefe3fb09b0c7134455fa7e46d5efe182efa33767267c26a120df0"
+    },
+    "policy/instant_track/motions/run1_subject2_first_forward_stand_end.csv": {
+      "bytes": 68545,
+      "sha256": "8b888155f322ccf23e65d8737a18fc9ccf825116b9396e357523f9fe39c18dc7"
+    },
+    "policy/instant_track/motions/run1_subject2_first_forward_stand_end.json": {
+      "bytes": 1417,
+      "sha256": "58243013a5057b7128274f25407e978bc17e23a2ca701cab5022314b5cbc6940"
     },
     "policy/multi_amp/model/composed_mlp_v17_hh_40700.onnx": {
       "bytes": 3477247,

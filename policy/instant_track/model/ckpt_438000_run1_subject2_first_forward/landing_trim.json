@@ -1,0 +1,22 @@
+{
+  "source": "/home/lzp/projects/xmigcs_dex3/policy/instant_track/motions/run1_subject2_first_forward_stand_end.csv",
+  "source_sha256": "8b888155f322ccf23e65d8737a18fc9ccf825116b9396e357523f9fe39c18dc7",
+  "output": "/home/lzp/projects/xmigcs_dex3/policy/instant_track/motions/run1_subject2_first_forward_landing_end.csv",
+  "output_sha256": "54f92d81dbd3170d47955512dd2e6c039f7c527d19973b14212606b1a2fbc655",
+  "source_frames": 157,
+  "retained_start_frame": 0,
+  "retained_end_frame": 92,
+  "frames": 93,
+  "sample_rate": 30.0,
+  "duration_seconds": 3.066666667,
+  "preserved_source_poses": true,
+  "selection": "First descending reference-tail source frame with all seven right-foot cylinder lower surfaces within 5 mm of floor, using training robot kinematics",
+  "kinematics_model": "/home/lzp/projects/GR00T-WholeBodyControl/gear_sonic/data/assets/robot_description/tiangong2dex_evt2_29dof/kinematic.xml",
+  "reference_right_foot_lowest_surface_m": 0.00066,
+  "reference_right_foot_highest_lower_surface_m": 0.00348,
+  "original_run_seconds": 2.2,
+  "retained_tail_seconds": 0.8666666666666667,
+  "removed_remaining_tail_and_hold_seconds": 2.1333333333333333,
+  "previous_trial": "/home/lzp/projects/xmigcs_dex3/outputs/run1_subject2_landing_end_20261111/trial_2p66/report.json",
+  "new_closed_loop_test_required": true
+}

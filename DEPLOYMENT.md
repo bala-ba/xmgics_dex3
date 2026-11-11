@@ -10,14 +10,16 @@ PyTorch、IsaacLab 或 CUDA。只运行 ONNX CPU 推理即可。
 | --- | --- | --- |
 | SONIC | `policy/sonic_track/model/export_100000_20261103_111558/` | encoder、decoder、manifest、mapping、训练配置、验证向量齐全 |
 | SONIC 参考动作 | `policy/sonic_track/motions/` | IDLE 的 `idle_loop_001__A028.pkl`、行走 `walk_forward_loop_001__A022.pkl`、下蹲 `squat_001__A362.pkl` |
-| InstantTrack | `policy/instant_track/model/` | 5 套包，每套含 `policy.onnx`、`motion_000.npz`、`manifest.json`、`validation.npz` |
+| InstantTrack | `policy/instant_track/model/` | 6 套包，每套含 `policy.onnx`、`motion_000.npz`、`manifest.json`、`validation.npz`；跑步包裁至摆动腿落地，测试结果见 InstantTrack README |
 | 默认 STAND / DEXAMP / DEXDELTA / MULTIAMP | 各 `policy/*/model/` | 齐全 |
 | 旧 WALKAMP / WALKLION / WALKLIONDWAQ / BEYONDMIMIC | 各 `policy/*/model/` | 补入当前配置指定的 4 个模型，保持原有禁用/未注册状态 |
 | Tiangong3 | `assets/tiangong3/` | 29 DoF XML、DEX armature XML、39 个网格、源 URDF 与构建所需 torque XML |
 | ROS 仿真接口 | `simulation/simulator_view_asyn.py`、`simulation/elastic_band.py` | 内置，可直接启动 |
 | 本地接口库 | `lib/22/`、`lib/24/` | x86_64 的 Humble/Python 3.10 和 Jazzy/Python 3.12 wheel、ROS 消息 deb |
 
-InstantTrack 默认仍是 `ckpt_438000` 的首段直行（601 帧、12 秒）。另外包含下蹲、
+InstantTrack 默认是 `ckpt_438000_run1_subject2_first_forward`：2.2 秒跑步、0.86 秒落腿收尾，
+落地后的参考帧已删除（154 帧、3.06 秒），按 `z → 1 → b` 准备后自动播放。结束后 policy
+继续跟踪静止末帧。另有 `ckpt_438000` 的首段直行（601 帧、12 秒）、下蹲、
 轻跳、敬礼和完整步行备份；切换 `policy/instant_track/config/instant_track.yaml` 的
 `export_dir` 即可。SONIC 配置位于 `policy/sonic_track/config/sonic_track.yaml`。
 导出 manifest 里的 `/home/lzp/...` 训练路径仅记录来源，运行时不读取这些位置。
@@ -55,7 +57,7 @@ python3.10 -m venv --system-site-packages .venv
 .venv/bin/python scripts/check_deployment.py --ros
 ```
 
-`--ros` 校验文件 SHA-256、SONIC 双网络、全部 5 套 InstantTrack 的 CPU 验证向量、
+`--ros` 校验文件 SHA-256、SONIC 双网络、全部 InstantTrack 动作包的 CPU 验证向量、
 MuJoCo XML/网格、ROS/踝库导入，以及所有默认启用的 FSM 状态初始化。
 它不会创建 ROS 节点或发送控制命令。输出中的两个 `OPTIONAL` 缺失提示对应上面禁用的深度策略。
 

@@ -2,7 +2,8 @@
 
 已接入 `/home/lzp/projects/instantTrack/logs/tiangong_single_20261109_004112/ckpt_438000.pt`，
 使用 checkpoint 的 `pi` 权重（训练保存的 EMA 策略），当前默认参考动作是
-`walk1_subject1_first_forward`，采样率为 50 Hz，共 601 帧、12 秒。
+`run1_subject2_first_forward_landing_end`，采样率为 50 Hz，共 154 帧、3.06 秒：
+2.2 秒原跑步片段、0.86 秒落腿收尾，落地后的参考帧已删除。
 
 完整部署包已随仓库提交，包含 `policy.onnx`、参考动作 NPZ、manifest 和验证数据。
 修改 `config/instant_track.yaml` 的 `export_dir` 后重启控制程序即可切换；以下目录均位于
@@ -11,10 +12,34 @@
 | 目录 | 参考动作 | 帧数 | 时长 |
 | --- | --- | ---: | ---: |
 | `ckpt_438000_squat_001__A362` | 下蹲 | 494 | 9.86 秒 |
-| `ckpt_438000` | 第一段直行，保留起步和停步（当前默认） | 601 | 12 秒 |
+| `ckpt_438000` | 第一段直行，保留起步和停步 | 601 | 12 秒 |
 | `ckpt_438000_jump_and_land_light_001__A001_M` | 轻跳落地 | 485 | 9.68 秒 |
 | `ckpt_438000_salute_002__A067` | 敬礼 | 122 | 2.42 秒 |
 | `ckpt_438000_full_backup_before_first_forward` | 完整 `walk1_subject1` 原始导出备份 | 13,066 | 261.3 秒 |
+| `ckpt_438000_run1_subject2_first_forward` | `run1_subject2.csv` 首次向前移动，裁至摆动腿落地（当前默认） | 154 | 3.06 秒 |
+
+新增跑步片段的裁剪 CSV 位于 `policy/instant_track/motions/run1_subject2_first_forward.csv`，
+保留原始第 336–402 帧（0 起始、含首尾），仅把时间戳归零；部署包通过训练 MotionLib
+重采样到 50 Hz，并重新计算速度和未来参考。`source_trim.json` 记录原文件、SHA-256 和裁剪范围。
+该包继续使用同一 `ckpt_438000` 权重，ONNX 与原包一致。
+
+当前加载的是 `motions/run1_subject2_first_forward_landing_end.csv`。它保留原
+`run1_subject2_first_forward_stand_end.csv` 的第 0–92 帧（30 Hz、含首尾），
+原姿态不变；在右侧摆动腿的参考足底接近地面后截断，删除后续收尾帧和 2 秒站姿停留。
+截点由训练机器人正运动学确认：右脚各接触几何的下表面均距地面不足 5 mm。
+CSV 时长为 3.0667 秒，训练 MotionLib 重采样后实际播放 3.06 秒；速度、未来参考和
+验证向量全部重新生成。`landing_trim.json` 记录此次裁剪；`standing_tail.json` 仅记录
+之前完整收尾的生成来源，不表示当前动作仍含完整 1 秒收尾和 2 秒停留。
+播放结束仍由 InstantTrack 在 FINISHED 持续跟踪静止末帧，不切换 FSM 的 STAND 状态。
+
+2026-11-11 使用 Tiangong3 + DEX armature、显式 PD 的实际 ROS 闭环测试：
+`z → 1 → b`，第 10 秒移除吊绳，第 14 秒进入准备后自动播放，154 帧播放完成且未摔倒。
+结束后继续控制 10.90 秒，水平位移 0.0942 m，最后 1 秒平均水平速度 0.00057 m/s。
+作为对照，原始 2.2 秒片段停在跑步姿态，结束后 9.78 秒漂移约 1.58 m。
+原始 2.2 秒导出包备份在本地 `outputs/run1_subject2_stand_end_20261111/original_bundle/`；
+此次修改前的完整 5.2 秒包备份在 `outputs/run1_subject2_landing_end_20261111/full_stand_end_bundle/`。
+当前测试报告和视频位于 `outputs/run1_subject2_landing_end_20261111/`；这些输出不属于部署必需文件。
+该片段首帧与站立姿态差异较大，使用 `b` 准备，不从 STAND 直接按 `p`。
 
 manifest 中的训练 checkpoint、原始动作和裁剪脚本路径用于记录来源；
 部署加载使用包内文件，不要求这些原始路径存在。
@@ -48,7 +73,8 @@ export ROS_LOCALHOST_ONLY=1
 | `c` | 进入现有 STOP 状态 |
 | `z` | 退出跟踪，回到 ZERO |
 
-推荐按键顺序为 `z → 1 → p`，其中 `1` 进入 STAND。STAND 中按一次 `p`，
+当前跑步包推荐 `z → 1 → b`，其中 `1` 进入 STAND，`b` 准备后自动播放。
+对于首帧接近站姿的其他动作，支持 `z → 1 → p`。STAND 中按一次 `p`，
 在当前控制周期直接进入 PLAYING，运行第 0 帧策略推理并使用策略 Kp/Kd。
 首帧插值阶段及其时长配置已删除，无需先按 `b`，也不会停留在 READY。
 观测历史用当前反馈初始化，previous action 由上一状态的关节目标换算，随后以 50 Hz 持续推理。
@@ -83,14 +109,15 @@ STOP 同样沿用本项目原有保持逻辑，并非电机断电。
 ## 数据与控制约定
 
 配置位于 `config/instant_track.yaml`。`export_dir` 相对本项目根目录解析，也支持绝对路径。
-本地导出文件在 `model/ckpt_438000/`，迁移到另一台机器时需要复制整个目录：
+当前导出文件在 `model/ckpt_438000_run1_subject2_first_forward/`，迁移到另一台机器时需要复制整个目录：
 
 - `policy.onnx`：包含观测/参考 RunningNorm、编码器、解码器及参考动作残差连接。
 - `motion_000.npz`：原训练预处理生成的位置、速度、根姿态和未来参考特征。
 - `manifest.json`：checkpoint、源数据和代码校验值，关节顺序、默认角、增益、缩放及力矩上限。
 - `validation.npz`：原训练 MDP 观测及 PyTorch 输出验证样本。
 
-模型和参考包约 45 MiB，`model/` 已被 Git 忽略。只复制 Python 源码不能运行此策略。
+完整部署包在 `model/` 中随项目管理。只复制 Python 源码不能运行此策略，
+需要一起复制选定目录内的模型、动作、manifest 和验证向量。
 
 观测输入为 `(1, 10, 99)`：历史从旧到新，每帧依次为：
 

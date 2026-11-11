@@ -1,7 +1,7 @@
 # xMIGCS
 
 **换电脑部署请先看 [DEPLOYMENT.md](DEPLOYMENT.md)**：SONIC 双网络和动作、
-InstantTrack 的全部 5 套动作包、Tiangong3 XML/网格及 ROS 仿真接口均已放进本仓库。
+InstantTrack 的完整动作包、Tiangong3 XML/网格及 ROS 仿真接口均已放进本仓库。
 安装后运行 `.venv/bin/python scripts/check_deployment.py --ros` 检查完整性与加载结果。
 
 本地已按原 xmigcs 接入 SONIC 双网络、manifest 和 IDLE LOOP，并适配
@@ -13,12 +13,13 @@ Ubuntu 22.04 / ROS 2 Humble / Python 3.10 的 MuJoCo 仿真。
 已下载 Tiangong3 官方资产并提供独立的旧 SONIC 策略运行入口，见
 [Tiangong3 动作生成与结果](TIANGONG3.md)。
 
-已接入 InstantTrack `ckpt_438000.pt`，默认加载裁剪后的首段直行动作。
-仓库包含下蹲、首段直行、轻跳、敬礼动作包及完整步行动作备份；
+已接入 InstantTrack `ckpt_438000.pt`，默认加载首段跑步并裁至摆动腿落地（3.06 秒）。
+仓库包含跑步、下蹲、首段直行、轻跳、敬礼动作包及完整步行动作备份；
 通过 `policy/instant_track/config/instant_track.yaml` 的 `export_dir` 选择动作包。独立状态
 `INSTANTTRACK`：从 ZERO/STAND 按 `b`，准备完成后自动播放；`p` 播放/续播，
 `i` 暂停参考但继续推理，`c` STOP；原地站立使用 `z → 1` 的 STAND。
-STAND 中可直接按 `p`，立即从首帧播放 InstantTrack，推荐顺序 `z → 1 → p`。
+当前跑步动作使用 `z → 1 → b`，准备完成后自动播放，结束后持续跟踪裁剪后的末帧。
+首帧接近站姿的其他动作可从 STAND 直接按 `p`，立即播放。
 模型导出、起播条件及离线验证见 [InstantTrack 接入说明](policy/instant_track/README.md)。
 
 xMIGCS (eXtensible Motion Intelligence Group Control System) 是一个用于机器人控制的软件系统，专注于通过有限状态机（FSM）和策略模块实现对机器人的灵活控制。项目服务于运动智能领域的研究与开发，支持多种控制模式和外部输入方式（如键盘、手柄等）。
